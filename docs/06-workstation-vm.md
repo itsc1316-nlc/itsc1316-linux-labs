@@ -107,7 +107,9 @@ You're now ready to keep your notes and writeups in git. The cloned repo lives a
 
 ## Part 3 — Reaching `labvm` from workstation (one-time SSH bootstrap)
 
-**Do this in the first week, before any lab.** Every lab from Module 1 onward assumes workstation can `scp` and `ssh` into `labvm`. Multipass puts every VM on the same virtual network, so the connection itself works — but Multipass only authorizes *its own* daemon key on each VM, not workstation's. You have to authorize workstation's key on `labvm` once, then everything else (scp/ssh from workstation) just works.
+**Do this in the first week if you want workstation's portfolio-track conveniences (committing your notes/writeups from workstation by copying them out of labvm via host).** The labs themselves don't require this — they pull scripts into labvm via `curl` and don't need workstation at all. The bootstrap is here for portfolio students who want to also try Module 2's SSH exercise from workstation (instead of from host), or who want to `scp` notes files between VMs.
+
+Multipass puts every VM on the same virtual network, so the connection itself works — but Multipass only authorizes *its own* daemon key on each VM, not workstation's. You have to authorize workstation's key on `labvm` once, then `scp`/`ssh` from workstation just works.
 
 This is a three-step handshake. Two short commands run on your host because that's where `multipass` lives; one runs inside workstation.
 
@@ -115,10 +117,11 @@ This is a three-step handshake. Two short commands run on your host because that
 
 ```
 multipass shell workstation
+mkdir -p ~/.ssh && chmod 700 ~/.ssh
 ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 -N ""
 ```
 
-(`-N ""` skips the passphrase prompt, which is fine for a lab VM.) Confirm the key exists:
+(`-N ""` skips the passphrase prompt, which is fine for a lab VM. `ssh-keygen` won't auto-create `~/.ssh` so we make it first.) Confirm the key exists:
 
 ```
 ls ~/.ssh/id_ed25519*
@@ -128,14 +131,16 @@ You should see `id_ed25519` (private) and `id_ed25519.pub` (public).
 
 ### Step 2 — From your host terminal, stage workstation's public key on labvm
 
-Open a **second** terminal on your host computer (leave the workstation shell open in the first one). The host is where `multipass` lives, so this is where the file-staging happens. Multipass does **not** support direct VM-to-VM transfers — you have to copy the key out of workstation to your host, then push the host's temp file into labvm:
+Open a **second** terminal on your host computer (leave the workstation shell open in the first one). The host is where `multipass` lives, so this is where the file-staging happens. Multipass does **not** support direct VM-to-VM transfers — you have to copy the key out of workstation to your host's current directory, then push that copy into labvm:
 
 ```
-multipass transfer workstation:/home/ubuntu/.ssh/id_ed25519.pub /tmp/ws.pub
-multipass transfer /tmp/ws.pub labvm:/tmp/ws.pub
+multipass transfer workstation:/home/ubuntu/.ssh/id_ed25519.pub ./ws.pub
+multipass transfer ./ws.pub labvm:/tmp/ws.pub
 multipass exec labvm -- bash -c 'mkdir -p ~/.ssh && chmod 700 ~/.ssh && cat /tmp/ws.pub >> ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys && rm /tmp/ws.pub'
-rm /tmp/ws.pub
+rm ws.pub                                # macOS/Linux. On PowerShell: del ws.pub
 ```
+
+> **Why `./ws.pub` and not `/tmp/ws.pub` for the host file?** `/tmp` is a POSIX-only path; on Windows there's no `/tmp` directory and `multipass transfer ... /tmp/ws.pub` will fail. A bare filename lands in the current directory — works identically on macOS, Linux, and PowerShell.
 
 ### Step 3 — Get labvm's IP and verify SSH works
 
@@ -180,10 +185,11 @@ bash check-NAME.sh                        # or `sudo bash check-NAME.sh` per the
 exit                                       # back to host
 
 # === Get your notes/writeup file off labvm so you can commit it ===
-# From your HOST terminal:
-multipass transfer labvm:/home/ubuntu/moduleXX-notes.txt /tmp/moduleXX-notes.txt
-multipass transfer /tmp/moduleXX-notes.txt workstation:/home/ubuntu/itsc1316-labs-yourname/labs/module-XX/
-rm /tmp/moduleXX-notes.txt
+# From your HOST terminal (the bare filename ./moduleXX-notes.txt lands in the
+# current directory and works on macOS, Linux, and PowerShell):
+multipass transfer labvm:/home/ubuntu/moduleXX-notes.txt ./moduleXX-notes.txt
+multipass transfer ./moduleXX-notes.txt workstation:/home/ubuntu/itsc1316-labs-yourname/labs/module-XX/
+rm moduleXX-notes.txt                   # macOS/Linux. On PowerShell: del moduleXX-notes.txt
 
 # === Commit your work from workstation ===
 multipass shell workstation

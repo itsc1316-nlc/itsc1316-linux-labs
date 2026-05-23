@@ -72,16 +72,22 @@ You should see `labvm` as `Running` with an IPv4 address.
 
 Skip this entirely if you're not planning to do the [PORTFOLIO.md](../PORTFOLIO.md) track. The labs themselves do **not** require a workstation VM — every lab fetches its scripts straight from this public repo into `labvm` with `curl`.
 
-If you *are* doing the portfolio track (recommended but optional), launch a second small VM where `git`, `gh`, `ssh-keygen`, `scp`, `nano`, etc. are pre-installed so the git/SSH experience is identical regardless of your laptop's OS. Either run the launch command on a single line:
+If you *are* doing the portfolio track (recommended but optional), launch a second small VM where `git`, `gh`, `ssh-keygen`, `scp`, `nano`, etc. are pre-installed so the git/SSH experience is identical regardless of your laptop's OS. Recent Multipass versions accept an HTTPS URL for `--cloud-init`, so a single line works on every shell (bash, zsh, PowerShell):
 
 ```
 multipass launch 22.04 --name workstation --cpus 1 --memory 1G --disk 5G --cloud-init https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/scripts/workstation/cloud-init.yaml
 ```
 
-Or pipe the cloud-init in (works the same in PowerShell, bash, zsh — no shell line-continuation needed):
+If your Multipass build is older and refuses the URL, fetch the file first and feed it from disk:
 
 ```
-curl -fsSL https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/scripts/workstation/cloud-init.yaml | multipass launch 22.04 --name workstation --cpus 1 --memory 1G --disk 5G --cloud-init -
+# macOS / Linux:
+curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/scripts/workstation/cloud-init.yaml
+multipass launch 22.04 --name workstation --cpus 1 --memory 1G --disk 5G --cloud-init ./cloud-init.yaml
+
+# Windows PowerShell (note `curl.exe`, not `curl` — the bare word is an alias for Invoke-WebRequest, which doesn't speak `-fsSLO`):
+curl.exe -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/scripts/workstation/cloud-init.yaml
+multipass launch 22.04 --name workstation --cpus 1 --memory 1G --disk 5G --cloud-init ./cloud-init.yaml
 ```
 
 The full walk-through (first-boot config, `gh auth login`, cloning your fork, daily git workflow, reaching `labvm` over SSH) lives in **[Workstation VM Guide](06-workstation-vm.md)**.

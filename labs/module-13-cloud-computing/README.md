@@ -39,10 +39,11 @@ Cloud servers do not use passwords; they use **key pairs**. You keep a private k
 **On your host computer's terminal:**
 
 ```
+mkdir -p ~/.ssh && chmod 700 ~/.ssh
 ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 -N "" -C "itsc1316"
 ```
 
-(`-N ""` skips the passphrase prompt.) Then print your **public** key:
+(`-N ""` skips the passphrase prompt. The `mkdir` matters on a fresh account because `ssh-keygen` doesn't create `~/.ssh` for you. On PowerShell, `mkdir -p` works as an alias for `New-Item -ItemType Directory -Force`.) Then print your **public** key:
 
 ```
 cat ~/.ssh/id_ed25519.pub
@@ -89,12 +90,14 @@ exit
 
 ## Part C — Launch a server that builds itself
 
-The `multipass launch` command runs on your **host** (multipass is a host tool), but your edited file lives in `labvm`. Copy it out, then launch:
+The `multipass launch` command runs on your **host** (multipass is a host tool), but your edited file lives in `labvm`. Copy it out into your current directory, then launch:
 
 ```
-multipass transfer labvm:/home/ubuntu/cloud-init.yaml /tmp/cloud-init.yaml
-multipass launch 22.04 --name cloudvm --cpus 1 --memory 1G --cloud-init /tmp/cloud-init.yaml
+multipass transfer labvm:/home/ubuntu/cloud-init.yaml ./cloud-init.yaml
+multipass launch 22.04 --name cloudvm --cpus 1 --memory 1G --cloud-init ./cloud-init.yaml
 ```
+
+> **Why `./cloud-init.yaml` instead of `/tmp/cloud-init.yaml`?** A bare filename in the current directory works identically on macOS, Linux, and Windows PowerShell. `/tmp` is a POSIX-only path; on Windows it doesn't exist and the transfer would fail.
 
 Multipass hands your file to cloud-init inside the new VM, exactly as a cloud provider would. Give it a minute to finish provisioning, then open a shell:
 
@@ -131,13 +134,13 @@ Inside `cloudvm`:
    bash check-cloud.sh
    ```
 
-Fix any FAILs. **Note:** cloud-init runs only on *first* boot, so if you need to change the config, the cleanest fix is to delete and relaunch (re-edit `/home/ubuntu/cloud-init.yaml` inside `labvm`, then re-do the Part C transfer + launch with a fresh name or after a delete):
+Fix any FAILs. **Note:** cloud-init runs only on *first* boot, so if you need to change the config, the cleanest fix is to delete and relaunch (re-edit `/home/ubuntu/cloud-init.yaml` inside `labvm`, then re-do the Part C transfer + launch):
 
 ```
 # from your host:
 multipass delete --purge cloudvm
-multipass transfer labvm:/home/ubuntu/cloud-init.yaml /tmp/cloud-init.yaml
-multipass launch 22.04 --name cloudvm --cloud-init /tmp/cloud-init.yaml
+multipass transfer labvm:/home/ubuntu/cloud-init.yaml ./cloud-init.yaml
+multipass launch 22.04 --name cloudvm --cloud-init ./cloud-init.yaml
 ```
 
 This "throw it away and rebuild it from config" loop is itself a core cloud habit — servers are cattle, not pets.

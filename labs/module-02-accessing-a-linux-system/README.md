@@ -61,10 +61,11 @@ You're already in `labvm` via the local Multipass shell — confirm it by runnin
 **Step A — on your host computer's terminal, generate a key if you don't already have one:**
 
 ```
+mkdir -p ~/.ssh && chmod 700 ~/.ssh
 ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 -N ""
 ```
 
-(Skip this if `~/.ssh/id_ed25519.pub` already exists — that means you have one.) `-N ""` skips the passphrase prompt, which is fine for a lab VM.
+(Skip both lines if `~/.ssh/id_ed25519.pub` already exists — that means you have one.) `-N ""` skips the passphrase prompt, which is fine for a lab VM. `ssh-keygen` won't create `~/.ssh` for you, so the `mkdir` matters on a fresh user account. On Windows PowerShell the same two commands work (`~/.ssh` expands to `C:\Users\you\.ssh`); use `New-Item -ItemType Directory -Force ~/.ssh` instead of `mkdir -p` if your shell doesn't support `-p`.
 
 **Step B — still on your host, push the public key into labvm and append it to authorized_keys:**
 
@@ -72,6 +73,8 @@ ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 -N ""
 multipass transfer ~/.ssh/id_ed25519.pub labvm:/tmp/host.pub
 multipass exec labvm -- bash -c 'mkdir -p ~/.ssh && chmod 700 ~/.ssh && cat /tmp/host.pub >> ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys && rm /tmp/host.pub'
 ```
+
+(`/tmp/host.pub` here is the path *inside* labvm — Linux — which always exists. We're not touching `/tmp` on the host.)
 
 **Step C — get labvm's IP and SSH into it from your host:**
 
@@ -82,7 +85,7 @@ ssh ubuntu@10.x.x.x                          # replace with the real IP you just
 
 You should land in `ubuntu@labvm:~$` with no password prompt — proof the key was accepted. Once connected over SSH, run `who` on labvm — you should see *two* sessions: the original Multipass shell session AND a `pts/` line for the SSH session from your host. Record the IP you connected to and paste the `who` line that shows the SSH session.
 
-> **Portfolio-track alternative.** If you launched the optional workstation VM, you can SSH from there instead. Inside workstation, generate `~/.ssh/id_ed25519`, then run the equivalent of Step B on your host to push **workstation's** public key into labvm: `multipass transfer workstation:/home/ubuntu/.ssh/id_ed25519.pub /tmp/ws.pub && multipass transfer /tmp/ws.pub labvm:/tmp/ws.pub && multipass exec labvm -- bash -c 'cat /tmp/ws.pub >> ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys && rm /tmp/ws.pub' && rm /tmp/ws.pub`. Then from inside workstation, `ssh ubuntu@<labvm-ip>` works the same way. Multipass doesn't allow direct VM-to-VM transfer, so the public key has to ride through `/tmp` on your host.
+> **Portfolio-track alternative.** If you launched the optional workstation VM, you can SSH from there instead. Inside workstation, run `mkdir -p ~/.ssh && chmod 700 ~/.ssh && ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 -N ""`, then on your host (not inside any VM) ride workstation's public key into labvm through your host's current directory: `multipass transfer workstation:/home/ubuntu/.ssh/id_ed25519.pub ./ws.pub && multipass transfer ./ws.pub labvm:/tmp/ws.pub && multipass exec labvm -- bash -c 'cat /tmp/ws.pub >> ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys && rm /tmp/ws.pub' && rm ws.pub`. (Use `del ws.pub` instead of `rm ws.pub` if you're in PowerShell.) Then from inside workstation, `ssh ubuntu@<labvm-ip>` works. Multipass doesn't allow direct VM-to-VM transfer, so the key has to ride through a host file — and a bare filename works on macOS, Linux, and PowerShell, whereas `/tmp/...` only works on POSIX hosts.
 
 > **Why bother?** `multipass shell` is a special case — it's like sitting at the machine's console because Multipass owns the box. SSH is how you actually reach any real server, on any cloud, anywhere on the internet. The three pieces — generate a key, authorize it on the server, then connect — are the same on every Linux box you will ever administer, including the Module 13 cloud lab where you do this on a real cloud instance.
 

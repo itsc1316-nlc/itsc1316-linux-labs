@@ -14,10 +14,21 @@ If you have not already, install Multipass for your platform using the **[Multip
 
 ## Step 2 — Get the preflight script
 
-The scripts live in this repo under `scripts/preflight/`. If you have cloned your copy of the repo, you already have them. If not, download the one for your platform from GitHub:
+Fetch the script for your OS straight from the course repo (no clone needed — these one-liners drop the file into your current directory):
 
-- **macOS / Linux / WSL:** `scripts/preflight/preflight.sh`
-- **Windows (PowerShell):** `scripts/preflight/preflight.ps1`
+### macOS / Linux / WSL
+
+```
+curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/scripts/preflight/preflight.sh
+```
+
+### Windows (PowerShell)
+
+```
+curl.exe -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/scripts/preflight/preflight.ps1
+```
+
+> **Why `curl.exe` and not `curl` on Windows?** Windows 10/11 ships actual curl as `curl.exe`, but PowerShell aliases the bare word `curl` to its own `Invoke-WebRequest`, which doesn't understand `-fsSLO`. Using `curl.exe` explicitly bypasses the alias and gets you the real tool.
 
 ---
 
@@ -25,7 +36,7 @@ The scripts live in this repo under `scripts/preflight/`. If you have cloned you
 
 ### macOS / Linux / WSL
 
-Open a terminal in the folder with the script and run:
+In the same terminal you just downloaded into:
 
 ```
 bash preflight.sh
@@ -33,7 +44,7 @@ bash preflight.sh
 
 ### Windows
 
-Open **PowerShell** (search for it in the Start menu), change to the folder with the script, and run:
+In the same PowerShell window:
 
 ```
 powershell -ExecutionPolicy Bypass -File .\preflight.ps1

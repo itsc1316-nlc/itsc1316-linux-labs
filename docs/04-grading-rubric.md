@@ -139,7 +139,7 @@ Total: 9 + 6 + 12 + 9 = **36 / 36**.
 
 Run through these in order; if you can't say "yes" to all, fix the gap first:
 
-- [ ] **Crit 1 (9 pts).** I just ran `bash check-*.sh` (or `sudo bash check-*.sh` if the lab says so) and saw **0 FAILs** — AND the SHA256 the script printed at the top matches the line in `labs/CHECKSUMS.txt`. (If you edited the check script, even by accident, fix it from a fresh `git pull` — a mismatched SHA is graded as academic-integrity, not a partial-credit issue.)
+- [ ] **Crit 1 (9 pts).** I just ran `bash check-*.sh` (or `sudo bash check-*.sh` if the lab says so) and saw **0 FAILs** — AND the SHA256 the script printed at the top matches the line in `labs/CHECKSUMS.txt`. (If you edited the check script, even by accident, refetch it fresh — `rm check-*.sh && curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/<lab>/check-<name>.sh` — a mismatched SHA is graded as academic-integrity, not a partial-credit issue. See [docs/05-screen-recording-guide.md](05-screen-recording-guide.md) for the full recipe.)
 - [ ] **Crit 2 (6 pts).** My recording is a single continuous take. In it you can see the SHA integrity block, `hostname`, `whoami`, and the check ending in PASS — all without me pausing or editing.
 - [ ] **Crit 3 (12 pts).** My written file has every section the lab asked for, zero `<...>` placeholders, and at least one reference to my own VM's specific output (hostname, IP, file path, etc.).
 - [ ] **Crit 4 (9 pts).** I attached both the recording (or link) and the written file. If AI was permitted and I used it, I added the one-line disclosure.

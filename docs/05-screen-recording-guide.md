@@ -21,10 +21,12 @@ That sequence alone is enough to satisfy [Criterion 2](04-grading-rubric.md#crit
 > ```
 > rm check-users.sh
 > curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-06-users-and-permissions/check-users.sh
-> sha256sum check-users.sh           # confirm it matches labs/CHECKSUMS.txt
+> sha256sum check-users.sh
+> # compare the printed SHA against the matching line in:
+> # https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/CHECKSUMS.txt
 > ```
 >
-> (Use the right path/filename for the lab you're on; each per-lab README shows the exact URL.) A mismatched SHA is graded as academic-integrity and scores the whole submission 0.
+> (You can also `curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/CHECKSUMS.txt && grep check-users.sh CHECKSUMS.txt` to do the comparison inside labvm. Use the right path/filename for the lab you're on; each per-lab README shows the exact URL.) A mismatched SHA is graded as academic-integrity and scores the whole submission 0.
 
 > **Why "continuous take"?** A stitched recording could be assembled from multiple machines, multiple runs, or someone else's work. A single take with your live hostname is the simplest credible proof the work happened on your machine just now.
 
