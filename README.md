@@ -6,9 +6,12 @@ Hands-on Linux labs that run on a free virtual machine on **your own computer** 
 > 1. Run the **[Preflight Check](docs/00-preflight-check.md)** to confirm your computer can run the labs (week 1).
 > 2. Follow the **[GitHub & Git Primer](docs/03-github-primer.md)** to make a GitHub account and get your own copy of this repo onto your computer.
 > 3. Follow the **[Multipass Setup Guide](docs/01-multipass-setup-guide.md)** to build your course VM.
-> 4. Start with the labs in [`labs/`](labs/), in module order.
+> 4. Skim the **[Grading Rubric](docs/04-grading-rubric.md)** so you know exactly how every lab is scored — there are 4 criteria and 4 levels each, with no ambiguity.
+> 5. Start with the labs in [`labs/`](labs/), in module order.
 >
-> Hitting problems — no internet in the VM, a VPN in the way, a launch that won't start? See the **[Multipass Troubleshooting Guide](docs/02-multipass-troubleshooting.md)**.
+> **Two more guides you'll need within the first week:**
+> - **[Screen Recording Guide](docs/05-screen-recording-guide.md)** — Alamo Zoom (primary) + one specific backup per OS (QuickTime / Game Bar / OBS).
+> - **[Multipass Troubleshooting Guide](docs/02-multipass-troubleshooting.md)** — for when the VM has no internet, a VPN is in the way, or a launch won't start.
 
 ---
 
@@ -58,7 +61,7 @@ multipass shell labvm
 
 > Each per-lab README states the exact `setup` and `check` commands for that lab. Follow those — the boilerplate above is just the shape, not a one-size-fits-all script.
 
-Then record a short **screen recording** (use your Alamo Colleges Zoom account — see the [Setup Guide](docs/01-multipass-setup-guide.md), Part 4) and submit it with whatever the lab asks for. A continuous recording of you working live on your own VM — webcam off, narration optional — is what proves the work is yours. The "why" lives in each lab's written reflection.
+Then record a short **screen recording** — see the **[Screen Recording Guide](docs/05-screen-recording-guide.md)** (Alamo Zoom by default; one specific backup per OS if Zoom isn't working) — and submit it with whatever the lab asks for. Every lab is scored against the same 4-criterion, 4-level **[Grading Rubric](docs/04-grading-rubric.md)** so you know in advance exactly what counts.
 
 ---
 

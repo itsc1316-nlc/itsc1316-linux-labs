@@ -124,41 +124,11 @@ Then record a short screencast (see Part 4) and submit it with your check output
 
 ---
 
-## Part 4 — Recording Your Screencast with Zoom
+## Part 4 — Recording Your Submission (see the dedicated guide)
 
-Every lab asks for a short **screen recording (about 60–90 seconds)**. This is your proof that *you* did the work on *your* system — something a shared screenshot can't fake.
+Every lab asks for a short **60–90 second screen recording** (Alamo Zoom by default, with a small per-platform backup list if Zoom isn't working). The full recipe — sign-in, record-to-cloud, submission preference order, privacy checklist, and the QuickTime / Game Bar / OBS backups — lives in **[Screen Recording Guide](05-screen-recording-guide.md)**.
 
-### Use your Alamo Colleges Zoom account
-
-You already have an enterprise **Zoom** account through Alamo Colleges — that is the tool we use for these recordings, so there is nothing extra to install or sign up for.
-
-1. Open the Zoom app and sign in with your **ACES / Alamo Colleges** account.
-2. Start a meeting by yourself (**New Meeting**). You do not invite anyone.
-3. **Turn your webcam OFF.** A webcam is not wanted for these recordings — we only need your screen.
-4. Click **Share Screen** and share the terminal window where your VM shell is open.
-5. Click **Record**. **Choose “Record to the Cloud”** if your Alamo account offers it — that produces a shareable link, which is how we prefer you submit. If you only see “Record on this Computer,” that is fine too.
-6. Do the short sequence below, then **Stop Recording** and **End** the meeting.
-
-### How to submit (preference order)
-
-1. **Preferred — Zoom Cloud link.** Once the cloud recording finishes processing (you'll get an email/notification), copy its **share link** and paste that into the Canvas assignment. Easiest for everyone and nothing large to upload.
-2. **Fine — local file.** If you recorded to your computer, Zoom saves an `.mp4` when the meeting ends. Upload that `.mp4` to the Canvas assignment.
-
-Either way, **keep your own copy of the `.mp4`.** Cloud recordings can age out of institutional storage, and a clip of you building or fixing a real system is exactly the kind of thing you may want later for your [portfolio](../PORTFOLIO.md). Make a "ITSC-1316 recordings" folder on your computer and drop each one in as you go. (Don't commit these video files to your Git repo — the repo's `.gitignore` blocks them on purpose; link to them instead.)
-
-### What the recording must show
-
-Keep it continuous — one unbroken take on your own VM, not stitched-together clips:
-
-- Run `hostname` and `whoami` so your VM is identifiable as yours.
-- Show the key step(s) of the lab happening live.
-- Run the check script so we see it **PASS** in real time.
-
-### Voice is optional; your writing carries the "why"
-
-**Narrating out loud is welcome but optional, and a webcam is discouraged.** If you would rather not talk, that is fine — the *reasoning* part of every lab is captured in its written reflection / report / writeup, which you submit alongside the recording. So the recording proves *you operated the system live*, and your writing proves *you understand why*. (If you do narrate, a sentence like "I used 660 here because…" is plenty.)
-
-We are not grading production quality. A plain, continuous screen recording of your real terminal is exactly what we want.
+The short version: one continuous take with **`hostname`** → **`whoami`** → **`bash check-*.sh`** showing the PASS banner on screen. Webcam off, narration optional. Submit the Zoom Cloud link if you have one, otherwise the `.mp4`.
 
 ---
 
