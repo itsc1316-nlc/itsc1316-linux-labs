@@ -16,7 +16,7 @@ Every lab grader is looking for the same three things on screen, in this exact o
 
 That sequence alone is enough to satisfy [Criterion 2](04-grading-rubric.md#criterion-2--screen-recording) of the rubric. Anything before / after is optional. **Webcam OFF; narration optional.**
 
-> **About the integrity line.** The check script auto-fetches `labs/CHECKSUMS.txt` from the canonical GitHub raw URL, compares it against the script's own SHA256, and prints one of three results: `INTEGRITY: VERIFIED` (good), `INTEGRITY: *** MISMATCH ***` (you edited the script — academic-integrity 0), or `INTEGRITY: UNKNOWN` (the VM couldn't reach GitHub, or no SHA tool — fix and re-record). **Do not edit the check script.** If you did by accident, replace it with a fresh copy — for example, for the Module 6 check script:
+> **About the integrity line.** The check script auto-fetches `labs/CHECKSUMS.txt` from the canonical GitHub raw URL, compares it against the script's own SHA256, and prints one of three results: `INTEGRITY: VERIFIED` (good), `INTEGRITY: *** MISMATCH ***` (you edited the script — academic-integrity 0), or `INTEGRITY: UNKNOWN` (one of: VM couldn't reach GitHub, the script's path is missing from `CHECKSUMS.txt`, or no `sha256sum`/`shasum` — the script's own UNKNOWN message names the cause; fix it and re-record). **Do not edit the check script.** If you did by accident, replace it with a fresh copy — for example, for the Module 6 check script:
 >
 > ```
 > rm check-users.sh

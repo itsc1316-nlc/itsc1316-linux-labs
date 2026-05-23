@@ -29,7 +29,7 @@ echo
 echo "=== check script integrity ==="
 INTEGRITY_REL_PATH="labs/module-05-storage-monitoring/check-storage.sh"
 INTEGRITY_REPO_URL="https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main"
-__SAVED_PATH="$PATH"; PATH="/usr/bin:/bin"; unset -f curl sha256sum shasum awk 2>/dev/null
+__SAVED_PATH="$PATH"; PATH="/usr/bin:/bin"; unset -f curl sha256sum shasum awk printf 2>/dev/null
 echo "  Script:      $(basename "$0")"
 if [[ -x /usr/bin/sha256sum ]]; then
   LOCAL_SHA="$(/usr/bin/sha256sum "$0" | /usr/bin/awk '{print $1}')"
@@ -46,8 +46,7 @@ if [[ -z "$CANONICAL_TXT" ]]; then
   echo "  INTEGRITY:   UNKNOWN — fix the network and re-run; canonical is at"
   echo "                 $INTEGRITY_REPO_URL/labs/CHECKSUMS.txt"
 else
-  EXPECTED_SHA="$(printf '%s
-' "$CANONICAL_TXT" | /usr/bin/awk -v p="$INTEGRITY_REL_PATH" '$2==p {print $1; exit}')"
+  EXPECTED_SHA="$(/usr/bin/printf '%s\n' "$CANONICAL_TXT" | /usr/bin/awk -v p="$INTEGRITY_REL_PATH" '$2==p {print $1; exit}')"
   if [[ -z "$EXPECTED_SHA" ]]; then
     echo "  Canonical:   (no matching line in CHECKSUMS.txt for $INTEGRITY_REL_PATH)"
     echo "  INTEGRITY:   UNKNOWN — re-fetch this script:"

@@ -19,18 +19,18 @@
 # rather than overwriting it; if you re-generate from scratch, paste this
 # header back at the top.
 
-c3a10765e3cb052120760dc06c3476b1d7ba84479ec1c3e29ca64282add88879  labs/module-01-introduction-to-linux/check-intro.sh
-1ca7b77d6721ca0548b2d66556af8dce893cf784ab74c39ec0b0984061e256ab  labs/module-02-accessing-a-linux-system/check-access.sh
-ea6f1f5f728ee5bca63bbb5ebd89b75e60fe05d4f696a88cd59aea6a8ce2a014  labs/module-03-shell-and-files/check-shell.sh
-e1613f5c538ee205f8ccd6b9db91cf80f3204acbc578afd95520cf92fa7b67e8  labs/module-04-filesystem-navigation/check-filesystem.sh
-4ebb0c8a2b9af0d95a52422d89a8a06b7334185d69e506b373be5b46deeb5429  labs/module-05-storage-monitoring/check-storage.sh
-eebe2f6cb87490dd891d027e669ed647bc7a93186523bbca710e6d17382181f1  labs/module-06-users-and-permissions/check-users.sh
-48e6949f42698267ed7f98abe3546c14157c35f1526e800c74938d1ae9b176be  labs/module-07-software-and-archives/check-software.sh
-7ec50f63837b61cc4fa9513c743fd2f9e9a75a02514f5b2d1a4bb2b37802daf6  labs/module-09-networking-fundamentals/check-netfund.sh
-8a33249de476efd09c4eef6cfe68b06b4096d1718c26579d3892b974adbd9c5d  labs/module-10-processes-and-resources/check-processes.sh
-ef23c08c9f8364952cfc8ebfcaafa532905e7d041f83d142b312e6845d2ea674  labs/module-11-devices-and-mounting/check-devices.sh
-73146fed6a7823d5487557e8bc7ff74ae1e51965546dfa4d6b60083bbed5cca2  labs/module-12-systemd-services/check-systemd.sh
-4a5abfd16945e75df96aacfb4c5b1625771c0e78e7aa4e03430ad707fcf878d2  labs/module-13-advanced-networking/check-net.sh
-89f0073f81dc0f973700aac2290bfd11f756d33965367bdb77f301a19ba1221e  labs/module-13-cloud-computing/check-cloud.sh
-d61c327db8e8966effb7859e8f1386562a46e7a70a8db6bce57f01ccb8c98bd9  labs/module-14-security-troubleshooting/check-security.sh
-1887305ed3268d8a257b64f63c37fec218c0a599606c46c514650af3990b255f  labs/module-15-capstone/check-capstone.sh
+ddc3a542b6fc40b012036a95ca109ae0bcca2f1c16d1885492c0b35668fbfd9a  labs/module-01-introduction-to-linux/check-intro.sh
+e993c5d4e6902c3e823ed9ef85df1375d01e5ade7bda222cafea944140f795a8  labs/module-02-accessing-a-linux-system/check-access.sh
+c0bc7607fade2577658504d24d643a0fcc1b2c5bbdc78d16550158d3413267ec  labs/module-03-shell-and-files/check-shell.sh
+fc81e86e0b57b6c7f327f52b1421c89d9f4b102ae98a1b92de5de527c8b2c4fc  labs/module-04-filesystem-navigation/check-filesystem.sh
+b25d8f70617f670d7e60d9b33f74f8ed43a7ae3bb187ed4ff57ed844cd875456  labs/module-05-storage-monitoring/check-storage.sh
+65164a656bc2c0fcc6df19df1a83c0f5dbee291404fb37971fce0dd4cb3cf77a  labs/module-06-users-and-permissions/check-users.sh
+575008f93bc495de9db9fcb8d55d02e4b31a2edecf525cc7efed1f0c9c071584  labs/module-07-software-and-archives/check-software.sh
+efebd44b2b7ecc94c8b1f535248fdc2c2ac49285cda0e78671bf89410f4896b5  labs/module-09-networking-fundamentals/check-netfund.sh
+d55d5dd31e4e052c09ae714ada9d54b45a401dbe344f0be958e443e4109c2ad4  labs/module-10-processes-and-resources/check-processes.sh
+cc774ca2cd933d5f820222ff41f9dcdaae6a26b69524826456ef87a831613667  labs/module-11-devices-and-mounting/check-devices.sh
+50e29ab085cedd7934e8b0f76bb546777194e688b4b87178537e35fe4efd08ce  labs/module-12-systemd-services/check-systemd.sh
+defbc2b5594a9994280e4c3ccf002377bbf2db41e0324e6df17819aafe6c4370  labs/module-13-advanced-networking/check-net.sh
+7e29a905d52ced45f4110ef33b9be284ff9d5d6418214b314132ef066aa5a6cd  labs/module-13-cloud-computing/check-cloud.sh
+eb066e81efa0f18d78d1947b3ebccf3785adac94ee7c854038f28f42ef1913d8  labs/module-14-security-troubleshooting/check-security.sh
+4d12991b9cbde3ed61066567ddc8d89a115b1b4d09a8d52e34bde09d7975558e  labs/module-15-capstone/check-capstone.sh
