@@ -12,7 +12,7 @@ You will write a cloud-init config that, on first boot, creates a key-only login
 | --- | --- |
 | **Estimated Time** | 50–80 minutes (plus optional cloud extension) |
 | **Environment** | A fresh Multipass VM named `cloudvm`, launched from your cloud-init file |
-| **Files** | `cloud-init.yaml` (you edit it), `check-cloud.sh` (both in this folder of your cloned repo) |
+| **Files** | `cloud-init.yaml` (you edit it), `check-cloud.sh` (you `curl` and edit them inside `labvm` — see Setup Guide) |
 | **Deliverable** | A 60–90 second Zoom screen recording (webcam off) showing `check-cloud.sh` passing and your served page, plus a short writeup |
 
 ## Outcomes
@@ -34,21 +34,15 @@ When you click "launch instance" on AWS, GCP, Azure, or Oracle Cloud, there is a
 
 ## Part A — Create an SSH key (the cloud way to log in)
 
-Cloud servers do not use passwords; they use **key pairs**. You keep a private key secret on the machine you connect from; the server holds your public key. In this course, the machine you connect from is your **workstation VM** — that's where keys, git, and ssh all live.
+Cloud servers do not use passwords; they use **key pairs**. You keep a private key secret on the machine you connect from; the server holds your public key. In this lab the machine you connect from is your laptop's host OS (macOS, Linux, or Windows 10+ — all ship with `ssh-keygen` and `ssh`). If you already created `~/.ssh/id_ed25519` for Module 2, that same key works here — skip to Part B.
 
-From your **host computer's terminal**, enter workstation:
-
-```
-multipass shell workstation
-```
-
-Then, inside workstation, generate the key (skip the `ssh-keygen` line if you already created `id_ed25519` for Module 2 — that same key works here):
+**On your host computer's terminal:**
 
 ```
-ssh-keygen -t ed25519 -C "itsc1316"
+ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 -N "" -C "itsc1316"
 ```
 
-Press Enter at every prompt (accept the default path `~/.ssh/id_ed25519`, no passphrase). Then print your **public** key:
+(`-N ""` skips the passphrase prompt.) Then print your **public** key:
 
 ```
 cat ~/.ssh/id_ed25519.pub
@@ -56,28 +50,50 @@ cat ~/.ssh/id_ed25519.pub
 
 Copy the entire line (it starts with `ssh-ed25519` and ends with your comment). You will paste it into `cloud-init.yaml` next.
 
-> **Never share or commit your *private* key** (`id_ed25519`, no `.pub`). The `.gitignore` in this repo blocks it, but stay aware. Only the `.pub` (public) key goes into configs.
+> **Never share or commit your *private* key** (`id_ed25519`, no `.pub`). The `.gitignore` in this repo blocks it; only the `.pub` (public) key goes into configs.
 
 ---
 
-## Part B — Write your cloud-init config
+## Part B — Pull and edit the cloud-init template inside `labvm`
 
-Open `cloud-init.yaml` (in this lab folder) in a text editor and make three edits:
+You'll edit the template *inside* `labvm` (which has `nano` and `curl` ready to go), then ferry the edited file out to your host so the next step's `multipass launch` can read it.
 
-1. Replace **`PASTE_YOUR_PUBLIC_KEY_HERE`** with the public key you just copied.
+From your **host computer's terminal**:
+
+```
+multipass shell labvm
+```
+
+Inside `labvm`, fetch a fresh copy of the template:
+
+```
+curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-13-cloud-computing/cloud-init.yaml
+nano cloud-init.yaml
+```
+
+Make three edits in the file:
+
+1. Replace **`PASTE_YOUR_PUBLIC_KEY_HERE`** with the public key you printed in Part A.
 2. Replace both **`YOUR_NAME_HERE`** placeholders with your actual name.
-3. Save the file.
+3. Save with Ctrl+O, exit with Ctrl+X.
 
 Read the comments in the file as you go — each block (`users`, `packages`, `write_files`, `runcmd`) maps to a real provisioning task.
+
+When you're done editing, leave the file at `/home/ubuntu/cloud-init.yaml` inside `labvm` and return to your host:
+
+```
+exit
+```
 
 ---
 
 ## Part C — Launch a server that builds itself
 
-From **your computer's terminal, at the root of your cloned repo**, launch a VM that uses your config as its user-data:
+The `multipass launch` command runs on your **host** (multipass is a host tool), but your edited file lives in `labvm`. Copy it out, then launch:
 
 ```
-multipass launch 22.04 --name cloudvm --cpus 1 --memory 1G --cloud-init labs/module-13-cloud-computing/cloud-init.yaml
+multipass transfer labvm:/home/ubuntu/cloud-init.yaml /tmp/cloud-init.yaml
+multipass launch 22.04 --name cloudvm --cpus 1 --memory 1G --cloud-init /tmp/cloud-init.yaml
 ```
 
 Multipass hands your file to cloud-init inside the new VM, exactly as a cloud provider would. Give it a minute to finish provisioning, then open a shell:
@@ -109,21 +125,19 @@ Inside `cloudvm`:
    curl http://localhost/
    ```
    You should see your personalized HTML — the server you never touched by hand.
+3. Pull and run the check script — same curl pattern as every other lab:
+   ```
+   curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-13-cloud-computing/check-cloud.sh
+   bash check-cloud.sh
+   ```
 
-Transfer and run the check script (from your computer, again at the repo root):
-
-```
-multipass transfer labs/module-13-cloud-computing/check-cloud.sh cloudvm:/home/ubuntu/
-multipass shell cloudvm
-bash check-cloud.sh
-```
-
-Fix any FAILs. **Note:** cloud-init runs only on *first* boot, so if you need to change the config, the cleanest fix is to delete and relaunch:
+Fix any FAILs. **Note:** cloud-init runs only on *first* boot, so if you need to change the config, the cleanest fix is to delete and relaunch (re-edit `/home/ubuntu/cloud-init.yaml` inside `labvm`, then re-do the Part C transfer + launch with a fresh name or after a delete):
 
 ```
-# from your computer, at the repo root
+# from your host:
 multipass delete --purge cloudvm
-multipass launch 22.04 --name cloudvm --cloud-init labs/module-13-cloud-computing/cloud-init.yaml
+multipass transfer labvm:/home/ubuntu/cloud-init.yaml /tmp/cloud-init.yaml
+multipass launch 22.04 --name cloudvm --cloud-init /tmp/cloud-init.yaml
 ```
 
 This "throw it away and rebuild it from config" loop is itself a core cloud habit — servers are cattle, not pets.
@@ -132,7 +146,7 @@ This "throw it away and rebuild it from config" loop is itself a core cloud habi
 
 ## Part E — Connect with your SSH key (prove key auth works)
 
-Find cloudvm's IP from your **host terminal**: `multipass list`. Then **inside workstation** (where your private key lives), connect to `cloudvm` as `clouduser` — no password:
+Find cloudvm's IP from your **host terminal**: `multipass list`. Then from your host (where your private key lives), connect to `cloudvm` as `clouduser` — no password:
 
 ```
 ssh -i ~/.ssh/id_ed25519 clouduser@<cloudvm-ip>

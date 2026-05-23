@@ -10,7 +10,7 @@ The shell is the single most important tool a Linux administrator uses, and almo
 | --- | --- |
 | **Estimated Time** | 60–90 minutes |
 | **Environment** | Your Multipass `labvm` (Ubuntu 22.04) |
-| **Scripts** | `setup-shell.sh`, `check-shell.sh` (in this folder of your cloned repo) |
+| **Scripts** | `setup-shell.sh`, `check-shell.sh` (pulled into `labvm` from the public repo with curl — see Setup Guide) |
 | **Deliverable** | A 60–90 second Zoom screen recording (webcam off) showing `check-shell.sh` passing, plus your written component (short answers below) |
 | **Key Location** | `~/mod03` (lab files) and `~/sysreport.sh` (the script you write) |
 
@@ -28,18 +28,19 @@ By the end of this lab you will be able to:
 
 ## Start the Lab Environment
 
-From your computer's terminal, **at the root of your cloned repo**, start the VM and transfer the two scripts in (do these *before* opening the VM shell — `multipass` doesn't exist inside the VM):
+From your computer's terminal, start `labvm` and shell into it:
 
 ```
 multipass start labvm
-multipass transfer labs/module-03-shell-and-files/setup-shell.sh labvm:/home/ubuntu/
-multipass transfer labs/module-03-shell-and-files/check-shell.sh labvm:/home/ubuntu/
-```
-
-Now open a shell inside the VM and seed the lab files:
-
-```
 multipass shell labvm
+```
+
+Then **inside `labvm`**, pull this lab's two scripts straight from the public course repo, eyeball them, and seed the lab files:
+
+```
+curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-03-shell-and-files/setup-shell.sh
+curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-03-shell-and-files/check-shell.sh
+less setup-shell.sh check-shell.sh     # inspect before running anything as root; press q to exit
 sudo bash setup-shell.sh
 ```
 

@@ -10,7 +10,7 @@ In this lab you secure a shared directory for a sales team. You will fix broken 
 | --- | --- |
 | **Estimated Time** | 30–50 minutes |
 | **Environment** | Your Multipass `labvm` (Ubuntu 22.04) |
-| **Scripts** | `setup-users.sh`, `check-users.sh` (in this folder of your cloned repo) |
+| **Scripts** | `setup-users.sh`, `check-users.sh` (pulled into `labvm` from the public repo with curl — see Setup Guide) |
 | **Deliverable** | A 60–90 second Zoom screen recording (webcam off) showing `check-users.sh` passing, plus your written answers to the two reflection questions |
 | **Key Location** | `/salesteam` |
 
@@ -30,18 +30,19 @@ By the end of this lab you will be able to:
 
 ## Start the Lab Environment
 
-From your computer's terminal, **at the root of your cloned repo**, start the VM and transfer the two scripts in (do these *before* opening the VM shell — `multipass` doesn't exist inside the VM):
+From your computer's terminal, start `labvm` and shell into it:
 
 ```
 multipass start labvm
-multipass transfer labs/module-06-users-and-permissions/setup-users.sh labvm:/home/ubuntu/
-multipass transfer labs/module-06-users-and-permissions/check-users.sh labvm:/home/ubuntu/
-```
-
-Now open a shell inside the VM and build the scenario:
-
-```
 multipass shell labvm
+```
+
+Then **inside `labvm`**, pull this lab's two scripts straight from the public course repo, eyeball them, and build the scenario:
+
+```
+curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-06-users-and-permissions/setup-users.sh
+curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-06-users-and-permissions/check-users.sh
+less setup-users.sh check-users.sh     # inspect before running anything as root; press q to exit
 sudo bash setup-users.sh
 ```
 

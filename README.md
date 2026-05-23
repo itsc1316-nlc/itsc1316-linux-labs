@@ -4,33 +4,16 @@ Hands-on Linux labs that run on a free virtual machine on **your own computer** 
 
 > **New here? Do these in order, in week 1:**
 > 1. **[Preflight Check](docs/00-preflight-check.md)** — confirms your computer can run the labs.
-> 2. **[Multipass Setup Guide](docs/01-multipass-setup-guide.md)** — installs Multipass and launches both course VMs (`labvm` and `workstation`).
-> 3. **[Workstation VM Guide](docs/06-workstation-vm.md)** — explains the two-VM model and finishes workstation's first-boot config (your repo and git auth live inside workstation, not on your host).
-> 4. **[GitHub & Git Primer](docs/03-github-primer.md)** — make a GitHub account, fork this template, clone it inside workstation.
-> 5. **[Grading Rubric](docs/04-grading-rubric.md)** — 4 criteria × 4 levels, explicit point values, no ambiguity.
-> 6. Start the labs in [`labs/`](labs/), in module order.
+> 2. **[Multipass Setup Guide](docs/01-multipass-setup-guide.md)** — installs Multipass and launches `labvm` (your one required lab VM).
+> 3. **[Grading Rubric](docs/04-grading-rubric.md)** — 4 criteria × 4 levels, explicit point values, no ambiguity.
+> 4. Start the labs in [`labs/`](labs/), in module order. Each lab tells you the two `curl` commands that pull its scripts straight into `labvm`.
 >
 > **Two more guides you'll need within the first week:**
 > - **[Screen Recording Guide](docs/05-screen-recording-guide.md)** — Alamo Zoom (primary) + one specific backup per OS (QuickTime / Game Bar / OBS).
 > - **[Multipass Troubleshooting Guide](docs/02-multipass-troubleshooting.md)** — for when the VM has no internet, a VPN is in the way, or a launch won't start.
-
----
-
-## Get your own copy (do this first)
-
-This repository is a **template**. You do not work in this shared repo — you make your own copy. If you have never used GitHub before, **the [GitHub & Git Primer](docs/03-github-primer.md) walks the whole thing step by step**, including making an account and installing git.
-
-The 30-second version for people who already use git:
-
-1. Click the green **“Use this template”** button at the top of the GitHub page, then **“Create a new repository.”**
-2. Name it something like `itsc1316-labs-yourname`. You can make it **private** (just for you and your instructor) or **public** (so it can become a portfolio — see below).
-3. Clone *your* copy to your computer:
-   ```
-   git clone https://github.com/YOUR-USERNAME/itsc1316-labs-yourname.git
-   cd itsc1316-labs-yourname
-   ```
-
-Working in your own copy means you get real version history of *your* learning — which is exactly what makes it valuable to an employer later.
+>
+> **Optional, only if you want a portfolio:**
+> - **[GitHub & Git Primer](docs/03-github-primer.md)** + **[Workstation VM Guide](docs/06-workstation-vm.md)** — make a GitHub account, copy the template into your own repo, and use a second small "workstation" VM as a uniform place to do git/SSH work. Required only for the [PORTFOLIO.md](PORTFOLIO.md) track; the labs themselves run fine without it.
 
 ---
 
@@ -44,23 +27,25 @@ Every lab folder under [`labs/`](labs/) contains:
 | `setup-*.sh` | Builds the lab scenario inside your VM (run once) |
 | `check-*.sh` | Self-grades your work — PASS/FAIL per requirement |
 
-The workflow is the same every time (full details in the [Setup Guide](docs/01-multipass-setup-guide.md)):
+You don't clone this repo. Instead, every lab's scripts are pulled straight into `labvm` from this public repo with `curl`. The workflow is the same every time (full details in the [Setup Guide](docs/01-multipass-setup-guide.md)):
 
 ```
-# from your computer
-multipass transfer labs/<lab>/setup-*.sh   labvm:/home/ubuntu/
-multipass transfer labs/<lab>/check-*.sh   labvm:/home/ubuntu/
+# from your computer:
 multipass shell labvm
-# inside the VM — see EACH LAB'S README for the exact command:
-# - most labs:   sudo bash setup-*.sh      (builds the scenario as root)
-# - a few labs:       bash setup-*.sh      (read-only setup; runs as you)
+
+# inside labvm — each lab's README gives the exact URLs:
+curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/<lab>/setup-<name>.sh
+curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/<lab>/check-<name>.sh
+less setup-<name>.sh check-<name>.sh        # inspect before you run anything as root
+sudo bash setup-<name>.sh                    # most labs; a few use 'bash' (no sudo) — README says
 # ...do the lab...
-# - most labs:       bash check-*.sh
-# - a few labs:  sudo bash check-*.sh      (reads root-only state — the README will say so)
+bash check-<name>.sh                         # or 'sudo bash check-*.sh' per the README
 # Fix FAILs and re-run until all PASS.
 ```
 
-> Each per-lab README states the exact `setup` and `check` commands for that lab. Follow those — the boilerplate above is just the shape, not a one-size-fits-all script.
+> Each per-lab README gives the exact `curl` URLs and the exact `setup`/`check` commands for that lab. Follow those — the boilerplate above is just the shape.
+
+> **Why `curl` instead of cloning?** It works the same on macOS, Windows, and Linux — all the work happens *inside* Ubuntu (`labvm`), which has `curl` pre-installed. Nothing to configure on your host. Every check script also prints its own SHA256 so you (and the grader) can verify it hasn't been tampered with against [`labs/CHECKSUMS.txt`](labs/CHECKSUMS.txt).
 
 Then record a short **screen recording** — see the **[Screen Recording Guide](docs/05-screen-recording-guide.md)** (Alamo Zoom by default; one specific backup per OS if Zoom isn't working) — and submit it with whatever the lab asks for. Every lab is scored against the same 4-criterion, 4-level **[Grading Rubric](docs/04-grading-rubric.md)** so you know in advance exactly what counts.
 
@@ -104,7 +89,7 @@ The labs are designed so an AI can help you *understand* a command, but only you
 
 ## Build a portfolio (optional, but recommended)
 
-If you make your repo public, the work you do here can become a portfolio piece that shows employers you can actually operate Linux — not just pass a quiz. See **[PORTFOLIO.md](PORTFOLIO.md)** for a template and guidance. It is entirely opt-in; nobody is required to make their work public.
+If you also keep your work in your own GitHub repo (the [GitHub Primer](docs/03-github-primer.md) + [Workstation VM Guide](docs/06-workstation-vm.md) track), it can become a portfolio piece that shows employers you can actually operate Linux — not just pass a quiz. See **[PORTFOLIO.md](PORTFOLIO.md)** for a template and guidance. It is entirely opt-in; the labs themselves don't require it.
 
 ---
 

@@ -12,7 +12,7 @@ This is the capstone. It pulls together everything from the course — files and
 | --- | --- |
 | **Estimated Time** | 90–150 minutes |
 | **Environment** | Your Multipass `labvm` (Ubuntu 22.04) |
-| **Scripts** | `setup-capstone.sh`, `check-capstone.sh` (in this folder of your cloned repo) |
+| **Scripts** | `setup-capstone.sh`, `check-capstone.sh` (pulled into `labvm` from the public repo with curl — see Setup Guide) |
 | **Deliverable** | A 60–90 second Zoom screen recording (webcam off) showing `check-capstone.sh` passing, plus your completed **handover report** (`~/module15-handover-report.txt`) |
 | **Key Locations** | `/srv/inherited`, `/opt/finance`, the `inheritd` service |
 
@@ -41,18 +41,19 @@ By the end of this lab you will be able to:
 >
 > If you get stuck, you can roll back with: `multipass stop labvm && multipass restore labvm.pre-mod15 && multipass start labvm`.
 
-Start the VM and transfer the scripts (from your computer's terminal, at the **root of your cloned repo**):
+Start `labvm` and shell into it (from your computer's terminal):
 
 ```
 multipass start labvm
-multipass transfer labs/module-15-capstone/setup-capstone.sh labvm:/home/ubuntu/
-multipass transfer labs/module-15-capstone/check-capstone.sh labvm:/home/ubuntu/
 multipass shell labvm
 ```
 
-Inside the VM, plant the scenario:
+Then **inside `labvm`**, pull this lab's two scripts straight from the public course repo, eyeball them, and plant the scenario:
 
 ```
+curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-15-capstone/setup-capstone.sh
+curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-15-capstone/check-capstone.sh
+less setup-capstone.sh check-capstone.sh     # inspect before running anything as root; press q to exit
 sudo bash setup-capstone.sh
 ```
 

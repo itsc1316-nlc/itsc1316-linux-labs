@@ -10,7 +10,7 @@ Every Linux server you will ever administer is, underneath, a carefully ordered 
 | --- | --- |
 | **Estimated Time** | 50–75 minutes |
 | **Environment** | Your Multipass `labvm` (Ubuntu 22.04) |
-| **Scripts** | `setup-systemd.sh`, `check-systemd.sh` (in this folder of your cloned repo) |
+| **Scripts** | `setup-systemd.sh`, `check-systemd.sh` (pulled into `labvm` from the public repo with curl — see Setup Guide) |
 | **Deliverable** | A 60–90 second Zoom screen recording (webcam off) showing `check-systemd.sh` passing, plus your written report `~/module12-systemd-report.txt` |
 | **Key Files** | `/etc/systemd/system/labhealth.service` (you create it), `/usr/local/bin/labhealth.sh` (setup drops it), `~/module12-systemd-report.txt` |
 
@@ -37,18 +37,19 @@ By the end of this lab you will be able to:
 > multipass start labvm
 > ```
 
-From your computer's terminal, **at the root of your cloned repo**, start the VM and transfer the two scripts in (do these *before* opening the VM shell — `multipass` doesn't exist inside the VM):
+From your computer's terminal, start `labvm` and shell into it:
 
 ```
 multipass start labvm
-multipass transfer labs/module-12-systemd-services/setup-systemd.sh labvm:/home/ubuntu/
-multipass transfer labs/module-12-systemd-services/check-systemd.sh labvm:/home/ubuntu/
-```
-
-Now open a shell inside the VM and prepare the lab:
-
-```
 multipass shell labvm
+```
+
+Then **inside `labvm`**, pull this lab's two scripts straight from the public course repo, eyeball them, and prepare the lab:
+
+```
+curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-12-systemd-services/setup-systemd.sh
+curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-12-systemd-services/check-systemd.sh
+less setup-systemd.sh check-systemd.sh     # inspect before running anything as root; press q to exit
 sudo bash setup-systemd.sh
 ```
 

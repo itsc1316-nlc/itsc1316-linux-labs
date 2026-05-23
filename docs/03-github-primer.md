@@ -1,10 +1,12 @@
-# GitHub & Git Primer (Get Your Own Copy of the Labs)
+# GitHub & Git Primer (Optional — for the Portfolio Track)
 
-**Do this once, in the first week, before any lab.** Every lab in this course lives on **GitHub** and runs out of *your* copy of the repo. This guide walks you from "no GitHub account" to "I can clone, edit, commit, and push" in about 20 minutes. No prior git experience is assumed.
+> **You do NOT need this guide to do the labs.** Every lab pulls its scripts from this public repo into `labvm` with two `curl` commands — see the [Setup Guide](01-multipass-setup-guide.md). This primer exists only if you want to keep your own work (notes, writeups, scripts you wrote, screenshots) in your own GitHub repo so it can become a [portfolio piece](../PORTFOLIO.md) future employers can see.
+
+**If you're doing the portfolio track**, do this once, in the first week, before any lab. It walks you from "no GitHub account" to "I can clone, edit, commit, and push" in about 20 minutes. No prior git experience is assumed.
 
 > **All of the git/gh/ssh work in this guide happens inside the [workstation VM](06-workstation-vm.md), not on your laptop's host OS.** That keeps the experience identical across macOS, Windows, and Linux. If you haven't set up workstation yet, do the [Workstation VM Guide](06-workstation-vm.md) first — it takes 5 minutes — and then come back here.
 
-> **Why GitHub?** GitHub is the standard place where source code lives — it's where you'll get the lab files, where your own work will be version-controlled, and (if you choose) where it becomes the portfolio piece you show employers. Every Linux/cloud/DevOps job in 2026 expects you to know basic git and GitHub. This is the on-ramp.
+> **Why GitHub?** GitHub is the standard place where source code lives — and (if you choose) where it becomes the portfolio piece you show employers. Every Linux/cloud/DevOps job in 2026 expects you to know basic git and GitHub. This is the on-ramp.
 
 ---
 
@@ -21,11 +23,11 @@ You do this in your **laptop's browser**, not in workstation (workstation has no
 
 ---
 
-## Part 2 — Get your own copy of the labs (the "Use this template" button)
+## Part 2 — Make your own copy of the labs (the "Use this template" button)
 
-Still in your **laptop's browser**. The course repo is a **template** — you don't work in the shared one, you make your own copy. This way your commit history is *your* learning record.
+Still in your **laptop's browser**. The course repo (`opseval/itsc1316-linux-labs`) is a **template** — for the portfolio track you make your own copy, then commit your notes, writeups, and any scripts you build into it as you go.
 
-1. Open the course repo on GitHub (your instructor will give you the link).
+1. Open <https://github.com/opseval/itsc1316-linux-labs>.
 2. Click the green **"Use this template"** button at the top → **"Create a new repository."**
 3. Name it `itsc1316-labs-<yourname>` (e.g. `itsc1316-labs-aflores`).
 4. Pick **Private** or **Public**:
@@ -102,7 +104,9 @@ cd itsc1316-labs-yourname
 ls labs/
 ```
 
-You should see all the lab folders. The repo lives at `/home/ubuntu/itsc1316-labs-yourname/` inside workstation. Every later command in any lab that says "from the root of your cloned repo" means here.
+You should see all the lab folders. The repo lives at `/home/ubuntu/itsc1316-labs-yourname/` inside workstation. This is where you'll save your own notes, writeups, and portfolio entries before committing them.
+
+> **Important — what runs where:** The labs themselves do **not** run from this clone. They fetch their scripts directly from `https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/...` into `labvm` using `curl` (see the [Setup Guide](01-multipass-setup-guide.md)). This clone in workstation is your **portfolio workspace** — for the notes/writeup files you create as you do each lab, and any scripts of your own you want to keep. Commands starting with `multipass` always run on your laptop's host terminal (multipass is a host tool); commands starting with `git`/`gh`/`nano`/`scp` run inside workstation.
 
 > **If you prefer plain git over `gh`** (e.g. you didn't run `gh auth login`), this works too:
 > ```

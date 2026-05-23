@@ -10,7 +10,7 @@ When a server "feels slow," the cause is almost always a **process** doing too m
 | --- | --- |
 | **Estimated Time** | 45–65 minutes |
 | **Environment** | Your Multipass `labvm` (Ubuntu 22.04) |
-| **Scripts** | `setup-processes.sh`, `check-processes.sh` (in this folder of your cloned repo) |
+| **Scripts** | `setup-processes.sh`, `check-processes.sh` (pulled into `labvm` from the public repo with curl — see Setup Guide) |
 | **Deliverable** | A 60–90 second Zoom screen recording (webcam off) showing `check-processes.sh` passing, plus your written component (below) |
 | **Key Items** | Runaway process `labhog-runaway`; evidence file `~/module10-process-report.txt` |
 
@@ -38,18 +38,19 @@ By the end of this lab you will be able to:
 > multipass start labvm
 > ```
 
-From your computer's terminal, **at the root of your cloned repo**, start the VM and transfer the two scripts in (do these *before* opening the VM shell):
+From your computer's terminal, start `labvm` and shell into it:
 
 ```
 multipass start labvm
-multipass transfer labs/module-10-processes-and-resources/setup-processes.sh labvm:/home/ubuntu/
-multipass transfer labs/module-10-processes-and-resources/check-processes.sh labvm:/home/ubuntu/
-```
-
-Now open a shell inside the VM and plant the scenario:
-
-```
 multipass shell labvm
+```
+
+Then **inside `labvm`**, pull this lab's two scripts straight from the public course repo, eyeball them, and plant the scenario:
+
+```
+curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-10-processes-and-resources/setup-processes.sh
+curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-10-processes-and-resources/check-processes.sh
+less setup-processes.sh check-processes.sh     # inspect before running anything as root; press q to exit
 sudo bash setup-processes.sh
 ```
 

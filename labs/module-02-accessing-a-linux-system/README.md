@@ -10,7 +10,7 @@ Before you can administer a server you have to get *into* it — and on a real s
 | --- | --- |
 | **Estimated Time** | 40–60 minutes |
 | **Environment** | Your Multipass `labvm` (Ubuntu 22.04) |
-| **Scripts** | `setup-access.sh`, `check-access.sh` (in this folder of your cloned repo) |
+| **Scripts** | `setup-access.sh`, `check-access.sh` (pulled into `labvm` from the public repo with curl — see Setup Guide) |
 | **Deliverable** | A 60–90 second Zoom screen recording (webcam off) showing `check-access.sh` passing, plus your completed `module2-access-notes.txt` with its written reflection |
 | **New Accounts** | `devops1`, `devops2` |
 | **Evidence File** | `~/module2-access-notes.txt` |
@@ -31,18 +31,19 @@ By the end of this lab you will be able to:
 
 ## Start the Lab Environment
 
-From your computer's terminal, **at the root of your cloned repo**, start the VM and transfer the two scripts in (do these *before* opening the VM shell):
+From your computer's terminal, start `labvm` and shell into it:
 
 ```
 multipass start labvm
-multipass transfer labs/module-02-accessing-a-linux-system/setup-access.sh labvm:/home/ubuntu/
-multipass transfer labs/module-02-accessing-a-linux-system/check-access.sh labvm:/home/ubuntu/
-```
-
-Open a shell inside the VM and build the scenario:
-
-```
 multipass shell labvm
+```
+
+Then **inside `labvm`**, pull this lab's two scripts straight from the public course repo, eyeball them, and build the scenario:
+
+```
+curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-02-accessing-a-linux-system/setup-access.sh
+curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-02-accessing-a-linux-system/check-access.sh
+less setup-access.sh check-access.sh     # inspect before running anything as root; press q to exit
 sudo bash setup-access.sh
 ```
 
@@ -55,31 +56,33 @@ This creates two extra users — `devops1` and `devops2` — whose passwords are
 Fill in your real output/answers in `~/module2-access-notes.txt` as you go (`nano ~/module2-access-notes.txt`; save with Ctrl+O, exit with Ctrl+X).
 
 **1. Access the VM two different ways.**
-You're already in `labvm` via the local Multipass shell — confirm it by running `who` and noting your session. Now you'll set up SSH access so you can log in like a remote admin from your **workstation VM**. Multipass injects its *own* SSH key into `labvm` (which is what makes `multipass shell` work), but it does **not** trust the workstation's key — so a bare `ssh ubuntu@labvm` from workstation will be refused. You have to authorize workstation's key on labvm first.
+You're already in `labvm` via the local Multipass shell — confirm it by running `who` and noting your session. Now you'll set up SSH access so you can log in like a remote admin from a **second machine** — in this lab, that second machine is your own laptop's host OS (macOS, Linux, or Windows 10+, all of which ship with `ssh` and `ssh-keygen`). Multipass injects its *own* daemon key into `labvm` (which is what makes `multipass shell` work), but it does **not** trust your laptop's personal SSH key — so a bare `ssh ubuntu@<labvm-ip>` from your host will be refused. You have to authorize your laptop's public key on labvm first.
 
-If you haven't already done the one-time bootstrap from the [Workstation VM Guide](../../docs/06-workstation-vm.md#part-3--reaching-the-other-lab-vms-from-workstation), do it now (these two commands run on your **host computer's terminal**, not inside any VM — they need access to `multipass`):
-
-```
-multipass transfer workstation:/home/ubuntu/.ssh/id_ed25519.pub labvm:/tmp/ws.pub
-multipass exec labvm -- bash -c \
-  'mkdir -p ~/.ssh && chmod 700 ~/.ssh && cat /tmp/ws.pub >> ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys && rm /tmp/ws.pub'
-```
-
-(If you've never generated `id_ed25519` inside workstation, do `multipass shell workstation` and run `ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519` first, then come back and run the two host commands.)
-
-Then, in a **second terminal on your computer**, enter workstation and SSH from there into labvm:
+**Step A — on your host computer's terminal, generate a key if you don't already have one:**
 
 ```
-multipass shell workstation                # in the new terminal
-# inside workstation:
-multipass_labvm_ip=$(getent hosts labvm 2>/dev/null | awk '{print $1}')
-echo "labvm IP from workstation: ${multipass_labvm_ip:-<run 'multipass list' on host>}"
-ssh ubuntu@labvm                            # uses workstation's key — no password
+ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 -N ""
 ```
 
-> If `getent hosts labvm` returns nothing inside workstation, Multipass hasn't registered the name in workstation's DNS. Get labvm's IP from your **host** terminal (`multipass list`) and use the IP directly: `ssh ubuntu@10.x.x.x`.
+(Skip this if `~/.ssh/id_ed25519.pub` already exists — that means you have one.) `-N ""` skips the passphrase prompt, which is fine for a lab VM.
 
-Once connected over SSH, run `who` on labvm — you should see *two* sessions: the original Multipass shell session AND a `pts/` line for the SSH session from workstation. Record the IP you connected to and paste the `who` line that shows the SSH session.
+**Step B — still on your host, push the public key into labvm and append it to authorized_keys:**
+
+```
+multipass transfer ~/.ssh/id_ed25519.pub labvm:/tmp/host.pub
+multipass exec labvm -- bash -c 'mkdir -p ~/.ssh && chmod 700 ~/.ssh && cat /tmp/host.pub >> ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys && rm /tmp/host.pub'
+```
+
+**Step C — get labvm's IP and SSH into it from your host:**
+
+```
+multipass list                              # look at labvm's IPv4 column; copy the address
+ssh ubuntu@10.x.x.x                          # replace with the real IP you just saw
+```
+
+You should land in `ubuntu@labvm:~$` with no password prompt — proof the key was accepted. Once connected over SSH, run `who` on labvm — you should see *two* sessions: the original Multipass shell session AND a `pts/` line for the SSH session from your host. Record the IP you connected to and paste the `who` line that shows the SSH session.
+
+> **Portfolio-track alternative.** If you launched the optional workstation VM, you can SSH from there instead. Inside workstation, generate `~/.ssh/id_ed25519`, then run the equivalent of Step B on your host to push **workstation's** public key into labvm: `multipass transfer workstation:/home/ubuntu/.ssh/id_ed25519.pub /tmp/ws.pub && multipass transfer /tmp/ws.pub labvm:/tmp/ws.pub && multipass exec labvm -- bash -c 'cat /tmp/ws.pub >> ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys && rm /tmp/ws.pub' && rm /tmp/ws.pub`. Then from inside workstation, `ssh ubuntu@<labvm-ip>` works the same way. Multipass doesn't allow direct VM-to-VM transfer, so the public key has to ride through `/tmp` on your host.
 
 > **Why bother?** `multipass shell` is a special case — it's like sitting at the machine's console because Multipass owns the box. SSH is how you actually reach any real server, on any cloud, anywhere on the internet. The three pieces — generate a key, authorize it on the server, then connect — are the same on every Linux box you will ever administer, including the Module 13 cloud lab where you do this on a real cloud instance.
 

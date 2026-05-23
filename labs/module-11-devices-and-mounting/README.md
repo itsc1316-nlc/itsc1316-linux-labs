@@ -12,7 +12,7 @@ Every storage device on a Linux system shows up as a *file* under `/dev`, and yo
 | --- | --- |
 | **Estimated Time** | 50–75 minutes |
 | **Environment** | Your Multipass `labvm` (Ubuntu 22.04) |
-| **Scripts** | `setup-devices.sh`, `check-devices.sh` (in this folder of your cloned repo) |
+| **Scripts** | `setup-devices.sh`, `check-devices.sh` (pulled into `labvm` from the public repo with curl — see Setup Guide) |
 | **Deliverable** | A 60–90 second Zoom screen recording (webcam off) showing `check-devices.sh` passing, plus your written **devices report** (`~/module11-devices-report.txt`) |
 | **Key Artifacts** | `~/loopdisk.img` (practice disk), `/mnt/practicedisk` (mount point), an `/etc/fstab` entry |
 
@@ -42,17 +42,18 @@ By the end of this lab you will be able to:
 > If anything goes sideways (especially a bad `/etc/fstab` line), you can roll back with:
 > `multipass stop labvm && multipass restore labvm.pre-mod11 && multipass start labvm`
 
-Transfer the scripts and open a shell (from your computer's terminal, at the **root of your cloned repo**):
+Open a shell into `labvm` (from your computer's terminal):
 
 ```
-multipass transfer labs/module-11-devices-and-mounting/setup-devices.sh labvm:/home/ubuntu/
-multipass transfer labs/module-11-devices-and-mounting/check-devices.sh labvm:/home/ubuntu/
 multipass shell labvm
 ```
 
-Inside the VM, run the setup. It pre-creates the 200 MB practice-disk image (`~/loopdisk.img`) so you have something to work with, installs the small tools this lab needs (`genisoimage` for the ISO step), and prints safety reminders. It is idempotent — re-running it cleans up any half-finished previous attempt first.
+Then **inside `labvm`**, pull this lab's two scripts straight from the public course repo, eyeball them, and run the setup. The setup pre-creates the 200 MB practice-disk image (`~/loopdisk.img`) so you have something to work with, installs the small tools this lab needs (`genisoimage` for the ISO step), and prints safety reminders. It is idempotent — re-running it cleans up any half-finished previous attempt first.
 
 ```
+curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-11-devices-and-mounting/setup-devices.sh
+curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-11-devices-and-mounting/check-devices.sh
+less setup-devices.sh check-devices.sh     # inspect before running anything as root; press q to exit
 sudo bash setup-devices.sh
 ```
 

@@ -10,7 +10,7 @@ Before you can configure or troubleshoot networking, you have to be able to answ
 | --- | --- |
 | **Estimated Time** | 30–45 minutes |
 | **Environment** | Your Multipass `labvm` (Ubuntu 22.04) |
-| **Scripts** | `setup-netfund.sh`, `check-netfund.sh` (in this folder of your cloned repo) |
+| **Scripts** | `setup-netfund.sh`, `check-netfund.sh` (pulled into `labvm` from the public repo with curl — see Setup Guide) |
 | **Deliverable** | A 60–90 second Zoom screen recording (webcam off) showing `check-netfund.sh` passing, plus your completed network report |
 
 ## Outcomes
@@ -27,18 +27,19 @@ By the end of this lab you will be able to:
 
 ## Start the Lab Environment
 
-If your VM is not running, start it and transfer the scripts (from your computer's terminal):
+If your VM is not running, start it and shell into it (from your computer's terminal):
 
 ```
 multipass start labvm
-multipass transfer labs/module-09-networking-fundamentals/setup-netfund.sh labvm:/home/ubuntu/
-multipass transfer labs/module-09-networking-fundamentals/check-netfund.sh labvm:/home/ubuntu/
 multipass shell labvm
 ```
 
-Inside the VM, create your report template:
+Then **inside `labvm`**, pull this lab's two scripts straight from the public course repo, eyeball them, and create your report template:
 
 ```
+curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-09-networking-fundamentals/setup-netfund.sh
+curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-09-networking-fundamentals/check-netfund.sh
+less setup-netfund.sh check-netfund.sh     # inspect before running anything; press q to exit
 bash setup-netfund.sh
 ```
 

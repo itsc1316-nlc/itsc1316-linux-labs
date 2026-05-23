@@ -10,7 +10,7 @@ So far you have worked on one machine. Real networks are about machines *finding
 | --- | --- |
 | **Estimated Time** | 50–75 minutes |
 | **Environment** | Your `labvm` **plus** a second VM named `fileserver` (you create it in this lab) |
-| **Scripts** | `setup-net.sh`, `check-net.sh` (in this folder of your cloned repo) |
+| **Scripts** | `setup-net.sh`, `check-net.sh` (pulled into `labvm` from the public repo with curl — see Setup Guide) |
 | **Deliverable** | A 60–90 second Zoom screen recording (webcam off) showing `check-net.sh` passing, plus a short troubleshooting writeup |
 
 ## Outcomes
@@ -39,15 +39,21 @@ multipass list
 
 `multipass list` now shows two VMs, each with its own IP address. **Write down the IP of `fileserver`** — you will need it. (It will look something like `10.x.x.x` or `192.168.x.x`.)
 
-### 2. Transfer scripts into labvm and open a shell
+### 2. Open a shell into labvm and pull this lab's scripts
 
-From the **root of your cloned repo** (so the paths below resolve), run:
+From your computer's terminal:
 
 ```
 multipass start labvm                                                       # in case it's stopped
-multipass transfer labs/module-13-advanced-networking/setup-net.sh labvm:/home/ubuntu/
-multipass transfer labs/module-13-advanced-networking/check-net.sh labvm:/home/ubuntu/
 multipass shell labvm
+```
+
+Then **inside `labvm`**, pull this lab's two scripts straight from the public course repo and eyeball them:
+
+```
+curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-13-advanced-networking/setup-net.sh
+curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-13-advanced-networking/check-net.sh
+less setup-net.sh check-net.sh     # inspect before running anything as root; press q to exit
 ```
 
 ### 3. Plant the scenario (inside labvm)

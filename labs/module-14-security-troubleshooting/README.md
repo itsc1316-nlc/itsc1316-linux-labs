@@ -10,7 +10,7 @@ A previous administrator left this system in rough shape: a tool was given dange
 | --- | --- |
 | **Estimated Time** | 50–75 minutes |
 | **Environment** | Your Multipass `labvm` (Ubuntu 22.04) |
-| **Scripts** | `setup-security.sh`, `check-security.sh` (in this folder of your cloned repo) |
+| **Scripts** | `setup-security.sh`, `check-security.sh` (pulled into `labvm` from the public repo with curl — see Setup Guide) |
 | **Deliverable** | A 60–90 second Zoom screen recording (webcam off) showing `check-security.sh` passing, plus a short **incident report** (template below) |
 
 ## Outcomes
@@ -36,18 +36,19 @@ By the end of this lab you will be able to:
 > multipass start labvm
 > ```
 
-Start the VM and transfer the scripts (from your computer's terminal, at the **root of your cloned repo**):
+Start `labvm` and shell into it (from your computer's terminal):
 
 ```
 multipass start labvm
-multipass transfer labs/module-14-security-troubleshooting/setup-security.sh labvm:/home/ubuntu/
-multipass transfer labs/module-14-security-troubleshooting/check-security.sh labvm:/home/ubuntu/
 multipass shell labvm
 ```
 
-Inside the VM, plant the scenario:
+Then **inside `labvm`**, pull this lab's two scripts straight from the public course repo, eyeball them, and plant the scenario:
 
 ```
+curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-14-security-troubleshooting/setup-security.sh
+curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-14-security-troubleshooting/check-security.sh
+less setup-security.sh check-security.sh     # inspect before running anything as root; press q to exit
 sudo bash setup-security.sh
 ```
 

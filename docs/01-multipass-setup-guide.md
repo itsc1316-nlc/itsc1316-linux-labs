@@ -46,99 +46,98 @@ You should see a version number. If you get "command not found," the install did
 
 ---
 
-## Part 2 — Launch Your Course VMs
+## Part 2 — Launch Your Lab VM
 
-This course runs on **two long-lived VMs** you keep for the whole semester:
-
-- **`labvm`** — where you run the lab `setup-*.sh` / `check-*.sh` scripts and do the exercises.
-- **`workstation`** — a small, pre-configured Ubuntu VM with `git`, `gh`, `ssh-keygen`, `scp`, `nano`, `vim`, etc., where you do every host-side task (so the experience is identical for everyone, regardless of laptop OS).
+The required VM for every lab is **`labvm`**. You keep it for the whole semester.
 
 ### 2a. Launch `labvm`
+
+From your computer's terminal:
 
 ```
 multipass launch 22.04 --name labvm --cpus 2 --memory 2G --disk 10G
 ```
 
-This downloads Ubuntu 22.04 LTS (the first time only — a few minutes) and boots it.
-
-### 2b. Launch `workstation`
-
-From the **root of your cloned repo** (so the cloud-init path resolves):
-
-```
-multipass launch 22.04 --name workstation --cpus 1 --memory 1G --disk 5G \
-    --cloud-init scripts/workstation/cloud-init.yaml
-```
-
-The `--cloud-init` flag tells Multipass to run a one-time first-boot setup that installs the dev tools. The full walk-through (first-boot config, `gh auth login`, cloning your fork, daily workflow, reaching `labvm` over SSH) lives in **[Workstation VM Guide](06-workstation-vm.md)**.
-
-### 2c. Confirm both are up
+This downloads Ubuntu 22.04 LTS (the first time only — a few minutes) and boots it. Confirm it's running:
 
 ```
 multipass list
 ```
 
-You should see `labvm` and `workstation`, each `Running`, each with an IP address.
+You should see `labvm` as `Running` with an IPv4 address.
 
-> **Low on resources?** Drop labvm to `--memory 1G` if your laptop struggles with 2 GB. Workstation already sits at 1 GB. If your machine genuinely cannot run two VMs, see **Part 6 — Cloud Fallback** below; you will not be penalized for hardware you do not have.
+> **Low on resources?** Drop to `--memory 1G` if your laptop struggles with 2 GB. If your machine genuinely cannot run a VM at all, see **Part 6 — Cloud Fallback** below; you will not be penalized for hardware you do not have.
+
+### 2b. (Optional) Launch the `workstation` VM — only if you want the portfolio/git track
+
+Skip this entirely if you're not planning to do the [PORTFOLIO.md](../PORTFOLIO.md) track. The labs themselves do **not** require a workstation VM — every lab fetches its scripts straight from this public repo into `labvm` with `curl`.
+
+If you *are* doing the portfolio track (recommended but optional), launch a second small VM where `git`, `gh`, `ssh-keygen`, `scp`, `nano`, etc. are pre-installed so the git/SSH experience is identical regardless of your laptop's OS. Either run the launch command on a single line:
+
+```
+multipass launch 22.04 --name workstation --cpus 1 --memory 1G --disk 5G --cloud-init https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/scripts/workstation/cloud-init.yaml
+```
+
+Or pipe the cloud-init in (works the same in PowerShell, bash, zsh — no shell line-continuation needed):
+
+```
+curl -fsSL https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/scripts/workstation/cloud-init.yaml | multipass launch 22.04 --name workstation --cpus 1 --memory 1G --disk 5G --cloud-init -
+```
+
+The full walk-through (first-boot config, `gh auth login`, cloning your fork, daily git workflow, reaching `labvm` over SSH) lives in **[Workstation VM Guide](06-workstation-vm.md)**.
 
 ---
 
 ## Part 3 — The Workflow You Will Repeat Every Lab
 
-Every lab follows the same five steps. Learn them once here.
+Every lab follows the same four steps. Learn them once here.
 
-### Step 1 — Get the lab's scripts
+### Step 1 — Open a shell inside `labvm`
 
-Each lab lives in its own folder under `labs/` in your cloned repo (see [GitHub Primer](03-github-primer.md) if you haven't cloned yet). The two files you'll work with are `setup-*.sh` (builds the lab scenario) and `check-*.sh` (grades your work). No downloads needed — they're already on your computer once you've cloned.
-
-### Step 2 — Transfer the scripts into your VM
-
-`multipass transfer` copies files from your computer into the VM. From your computer's terminal, **at the root of your cloned repo** (so the `labs/...` paths resolve), run:
-
-```
-multipass transfer labs/<lab-folder>/setup-<name>.sh labvm:/home/ubuntu/
-multipass transfer labs/<lab-folder>/check-<name>.sh labvm:/home/ubuntu/
-```
-
-For example, for the Module 6 lab:
-
-```
-multipass transfer labs/module-06-users-and-permissions/setup-users.sh labvm:/home/ubuntu/
-multipass transfer labs/module-06-users-and-permissions/check-users.sh labvm:/home/ubuntu/
-```
-
-On Windows, the same commands work in PowerShell (forward slashes are fine in arguments to `multipass`).
-
-### Step 3 — Open a shell inside the VM
+From your computer's terminal:
 
 ```
 multipass shell labvm
 ```
 
-Your prompt changes to `ubuntu@labvm:~$`. You are now *inside* the Linux system. Run the setup script to build the scenario — **each lab's README says whether to run setup/check with `sudo`.** Most labs use:
+Your prompt changes to `ubuntu@labvm:~$`. You are now *inside* the Linux system. Everything else in this workflow happens here.
+
+### Step 2 — Pull the lab's scripts straight from the public repo
+
+Each per-lab README tells you the exact two `curl` commands for that lab. They look like this (the example is Module 6):
+
+```
+curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-06-users-and-permissions/setup-users.sh
+curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-06-users-and-permissions/check-users.sh
+```
+
+The `-O` writes each file with its remote name (e.g. `setup-users.sh`); `-fsSL` makes curl quiet on success, loud on failure, and follow any redirects.
+
+> **Always inspect before you `sudo`.** A setup script may run as root. Read it first:
+>
+> ```
+> less setup-<name>.sh check-<name>.sh
+> ```
+>
+> Press `q` to exit `less`. The check script also prints its own SHA256 when you run it; the grader compares that against [`labs/CHECKSUMS.txt`](../labs/CHECKSUMS.txt) to confirm nothing's been tampered with.
+
+### Step 3 — Run setup → do the lab → run check
+
+**Each lab's README states the exact `setup` and `check` commands** (whether they need `sudo`). Most labs use:
 
 ```
 sudo bash setup-<name>.sh
-```
-
-…but a few labs intentionally run setup as your normal user (it's a read-only or per-user setup), and a few labs need `sudo` on the *check* too. Always follow each lab README's exact command.
-
-### Step 4 — Do the lab
-
-Follow the lab instructions. Work entirely inside the VM shell.
-
-### Step 5 — Grade yourself and record proof
-
-When you think you are done, run the check script:
-
-```
+# ...do the lab...
 bash check-<name>.sh
 ```
 
-It prints a PASS or FAIL for each requirement. Fix any FAILs and run it again until everything passes — exactly like a real admin re-testing after a change.
+…but a few labs intentionally run setup as your normal user (read-only or per-user setup), and a few labs need `sudo` on the *check* too. Always follow the per-lab README, not the boilerplate.
 
-Then record a short screencast (see Part 4) and submit it with your check output.
+The check prints PASS or FAIL for each requirement. Fix any FAILs and run it again until everything passes — exactly like a real admin re-testing after a change.
+
+### Step 4 — Record proof and submit
+
+Record a short screencast (see Part 4) showing `hostname`, `whoami`, and the check passing. Submit per the rubric.
 
 ---
 
@@ -160,8 +159,8 @@ A few commands you will use throughout the semester:
 | Open a shell | `multipass shell labvm` |
 | Stop the VM (frees resources, keeps your work) | `multipass stop labvm` |
 | Start it again | `multipass start labvm` |
-| Copy a file in | `multipass transfer FILE labvm:/home/ubuntu/` |
-| Copy a file out | `multipass transfer labvm:/home/ubuntu/FILE .` |
+| Pull a lab script from the public repo (run *inside* labvm) | `curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/<lab>/<script>.sh` |
+| Copy a notes/report file out (for Canvas upload) | `multipass transfer labvm:/home/ubuntu/FILE .` |
 | Take a (named) snapshot before risky work | `multipass stop labvm && multipass snapshot --name BEFORE-X labvm && multipass start labvm` |
 | Restore a snapshot | `multipass stop labvm && multipass restore labvm.BEFORE-X && multipass start labvm` |
 
@@ -181,7 +180,7 @@ Recommended free options:
 - **GitHub Student Developer Pack** — verify with your ACES student email and get $200 in DigitalOcean credit (≈ 4 years of a basic VM).
 - **Ask me** — if neither works for you, contact me and we will arrange access. Nobody is blocked from this course for lack of hardware.
 
-Once you have a cloud Ubuntu 22.04 instance, you transfer scripts with `scp` instead of `multipass transfer`, and connect with `ssh` instead of `multipass shell`. Everything inside the VM is the same.
+Once you have a cloud Ubuntu 22.04 instance, you connect with `ssh` instead of `multipass shell`, and the per-lab `curl` commands work exactly the same way (they're fetching from `raw.githubusercontent.com`, which any Linux box can reach). Everything inside the VM is identical.
 
 ---
 
@@ -198,7 +197,8 @@ This course uses **Ubuntu** because Multipass makes it free and instant on your 
 | `multipass: command not found` | Install did not complete. Reinstall; reboot. |
 | `launch failed: ... not enough memory` | Lower `--memory` to `1G`, or stop other VMs. |
 | VM stuck "Starting" | `multipass stop labvm` then `multipass start labvm`. |
-| Can't transfer a file | Check the path on your computer is exact; use full paths. |
+| `curl: (6) Could not resolve host: raw.githubusercontent.com` (inside `labvm`) | The VM has no internet — almost always a VPN or corporate proxy on your host. See the Troubleshooting Guide. |
+| `curl: (22) The requested URL returned error: 404` | The path or filename is wrong. Check the spelling against the lab's README; the path is case-sensitive. |
 | Forgot the VM's IP | `multipass list` or, inside the VM, `ip a`. |
 | VM has no internet / can't resolve names | Usually a **VPN or firewall** — see the Troubleshooting Guide. |
 

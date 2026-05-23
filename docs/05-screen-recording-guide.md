@@ -16,7 +16,15 @@ Every lab grader is looking for the same three things on screen, in this exact o
 
 That sequence alone is enough to satisfy [Criterion 2](04-grading-rubric.md#criterion-2--screen-recording) of the rubric. Anything before / after is optional. **Webcam OFF; narration optional.**
 
-> **About the SHA256 line.** The check script prints its own SHA256 right after the title, so the grader can verify you didn't modify the script to hide a failed check. **Do not edit the check script.** If you did by accident, replace it from a fresh `git pull` (inside workstation: `cd ~/itsc1316-labs-yourname && git checkout labs/<lab-folder>/check-*.sh`). A mismatched SHA is graded as academic-integrity and scores the whole submission 0.
+> **About the SHA256 line.** The check script prints its own SHA256 right after the title, so the grader can verify you didn't modify the script to hide a failed check. **Do not edit the check script.** If you did by accident, replace it inside `labvm` with a fresh copy from the canonical URL — for example, for the Module 6 check script:
+>
+> ```
+> rm check-users.sh
+> curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-06-users-and-permissions/check-users.sh
+> sha256sum check-users.sh           # confirm it matches labs/CHECKSUMS.txt
+> ```
+>
+> (Use the right path/filename for the lab you're on; each per-lab README shows the exact URL.) A mismatched SHA is graded as academic-integrity and scores the whole submission 0.
 
 > **Why "continuous take"?** A stitched recording could be assembled from multiple machines, multiple runs, or someone else's work. A single take with your live hostname is the simplest credible proof the work happened on your machine just now.
 

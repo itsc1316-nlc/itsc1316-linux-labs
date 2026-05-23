@@ -10,7 +10,7 @@ A disk that fills to 100% is one of the most common causes of a Linux server fal
 | --- | --- |
 | **Estimated Time** | 35–55 minutes |
 | **Environment** | Your Multipass `labvm` (Ubuntu 22.04) |
-| **Scripts** | `setup-storage.sh`, `check-storage.sh` (in this folder of your cloned repo) |
+| **Scripts** | `setup-storage.sh`, `check-storage.sh` (pulled into `labvm` from the public repo with curl — see Setup Guide) |
 | **Deliverable** | A 60–90 second Zoom screen recording (webcam off) showing `check-storage.sh` passing, plus your written **storage report** (`~/module5-storage-report.txt`) |
 | **Key Location** | `~/bigdata` |
 
@@ -28,18 +28,19 @@ By the end of this lab you will be able to:
 
 ## Start the Lab Environment
 
-From your computer's terminal, **at the root of your cloned repo**, start the VM and transfer the two scripts in (do these *before* opening the VM shell — `multipass` doesn't exist inside the VM):
+From your computer's terminal, start `labvm` and shell into it:
 
 ```
 multipass start labvm
-multipass transfer labs/module-05-storage-monitoring/setup-storage.sh labvm:/home/ubuntu/
-multipass transfer labs/module-05-storage-monitoring/check-storage.sh labvm:/home/ubuntu/
-```
-
-Now open a shell inside the VM and build the scenario:
-
-```
 multipass shell labvm
+```
+
+Then **inside `labvm`**, pull this lab's two scripts straight from the public course repo, eyeball them, and build the scenario:
+
+```
+curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-05-storage-monitoring/setup-storage.sh
+curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-05-storage-monitoring/check-storage.sh
+less setup-storage.sh check-storage.sh     # inspect before running anything as root; press q to exit
 bash setup-storage.sh
 ```
 

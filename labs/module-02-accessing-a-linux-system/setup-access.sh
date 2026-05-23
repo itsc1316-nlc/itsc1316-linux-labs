@@ -57,13 +57,15 @@ HOSTNAME:            <run: hostname>
 # --- TASK 1: Access the VM two different ways ---
 # (a) You are already in via 'multipass shell labvm'. Confirm it:
 ACCESS_MULTIPASS:    <run: who   -- paste the line showing your session>
-# (b) Now access it over SSH from your computer's terminal. Multipass injects
-#     ITS OWN daemon key (which is what makes 'multipass shell' work), but it
+# (b) Now access labvm over SSH from your laptop's host terminal (macOS /
+#     Linux / Windows 10+ all ship with ssh + ssh-keygen). Multipass injects
+#     ITS OWN daemon key (which is what makes 'multipass shell' work), but
 #     does NOT trust your personal key — so a bare 'ssh ubuntu@<ip>' is
-#     refused until you add your public key. See the README, Task 1, for the
-#     exact ssh-keygen + multipass transfer + multipass exec sequence that
-#     pushes ~/.ssh/id_ed25519.pub into ubuntu's authorized_keys. Then SSH in
-#     from a SECOND terminal on your computer and paste:
+#     refused until you authorize your host's public key on labvm. See the
+#     README, Task 1, for the exact ssh-keygen + multipass transfer +
+#     multipass exec sequence that appends ~/.ssh/id_ed25519.pub from your
+#     host into labvm's authorized_keys. Then 'ssh ubuntu@<labvm-ip>' from
+#     a SECOND terminal on your laptop and paste:
 ACCESS_SSH_IP:       <the IP you used, e.g. 10.122.45.7>
 ACCESS_SSH_PROOF:    <paste the 'who' line showing your pts/ SSH session>
 
