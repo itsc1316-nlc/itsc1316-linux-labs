@@ -31,7 +31,12 @@ if [[ -s "${LABDIR}/out.txt" && -s "${LABDIR}/err.txt" ]]; then
   grep -q "servers.csv" "${LABDIR}/out.txt" 2>/dev/null && out_has_servers=1
   # An error in the stdout file means the streams were not actually separated.
   grep -qiE "No such file|cannot access" "${LABDIR}/out.txt" 2>/dev/null && out_has_error=1
-  err_count=$(grep -ciE "No such file|cannot access" "${LABDIR}/err.txt" 2>/dev/null || echo 0)
+  # NB: `grep -c` exits 1 when there are zero matches even though it prints "0".
+  # The old `|| echo 0` fallback then ALSO printed "0", giving err_count=$'0\n0'
+  # — which crashes the arithmetic on the next line. $(...) already strips the
+  # trailing newline; just default the empty case so this stays a single integer.
+  err_count=$(grep -cE "No such file|cannot access" "${LABDIR}/err.txt" 2>/dev/null)
+  err_count="${err_count:-0}"
   if (( out_has_servers == 1 && out_has_error == 0 && err_count >= 2 )); then
     ok "out.txt has the listing (stdout) and err.txt has the errors (stderr), with an appended second error"
   elif (( out_has_servers == 0 )); then
