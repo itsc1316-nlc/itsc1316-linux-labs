@@ -10,7 +10,7 @@ In this lab you secure a shared directory for a sales team. You will fix broken 
 | --- | --- |
 | **Estimated Time** | 30–50 minutes |
 | **Environment** | Your Multipass `labvm` (Ubuntu 22.04) |
-| **Scripts** | `setup-users.sh`, `check-users.sh` (download from Canvas) |
+| **Scripts** | `setup-users.sh`, `check-users.sh` (in this folder of your cloned repo) |
 | **Deliverable** | A 60–90 second Zoom screen recording (webcam off) showing `check-users.sh` passing, plus your written answers to the two reflection questions |
 | **Key Location** | `/salesteam` |
 
@@ -34,11 +34,11 @@ multipass start labvm
 multipass shell labvm
 ```
 
-Transfer the two scripts in (run these from your computer's terminal, not inside the VM):
+Transfer the two scripts in (run these from your computer's terminal, from the **root of your cloned repo**, not inside the VM):
 
 ```
-multipass transfer ~/Downloads/setup-users.sh labvm:/home/ubuntu/
-multipass transfer ~/Downloads/check-users.sh labvm:/home/ubuntu/
+multipass transfer labs/module-06-users-and-permissions/setup-users.sh labvm:/home/ubuntu/
+multipass transfer labs/module-06-users-and-permissions/check-users.sh labvm:/home/ubuntu/
 ```
 
 Then, **inside the VM**, build the scenario:

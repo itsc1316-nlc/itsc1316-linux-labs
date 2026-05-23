@@ -40,6 +40,9 @@ cat > /usr/local/bin/sysoptimizer <<'EOF'
 while true; do : ; done
 EOF
 chmod +x /usr/local/bin/sysoptimizer
+# If a previous setup left one running, kill it first so we don't end up with
+# multiple CPU-hogging processes on re-run.
+pkill -f '/usr/local/bin/sysoptimizer' >/dev/null 2>&1 || true
 # Launch it in the background, detached, so it shows up in process listings.
 setsid /usr/local/bin/sysoptimizer >/dev/null 2>&1 < /dev/null &
 echo $! > /run/sysoptimizer.pid || true

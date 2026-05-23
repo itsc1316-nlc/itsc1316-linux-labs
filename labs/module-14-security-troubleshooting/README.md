@@ -10,7 +10,7 @@ A previous administrator left this system in rough shape: a tool was given dange
 | --- | --- |
 | **Estimated Time** | 50–75 minutes |
 | **Environment** | Your Multipass `labvm` (Ubuntu 22.04) |
-| **Scripts** | `setup-security.sh`, `check-security.sh` (download from Canvas) |
+| **Scripts** | `setup-security.sh`, `check-security.sh` (in this folder of your cloned repo) |
 | **Deliverable** | A 60–90 second Zoom screen recording (webcam off) showing `check-security.sh` passing, plus a short **incident report** (template below) |
 
 ## Outcomes
@@ -32,12 +32,12 @@ By the end of this lab you will be able to:
 > multipass snapshot labvm
 > ```
 
-Start the VM and transfer the scripts (from your computer's terminal):
+Start the VM and transfer the scripts (from your computer's terminal, at the **root of your cloned repo**):
 
 ```
 multipass start labvm
-multipass transfer ~/Downloads/setup-security.sh labvm:/home/ubuntu/
-multipass transfer ~/Downloads/check-security.sh labvm:/home/ubuntu/
+multipass transfer labs/module-14-security-troubleshooting/setup-security.sh labvm:/home/ubuntu/
+multipass transfer labs/module-14-security-troubleshooting/check-security.sh labvm:/home/ubuntu/
 multipass shell labvm
 ```
 

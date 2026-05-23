@@ -12,7 +12,7 @@ You will write a cloud-init config that, on first boot, creates a key-only login
 | --- | --- |
 | **Estimated Time** | 50–80 minutes (plus optional cloud extension) |
 | **Environment** | A fresh Multipass VM named `cloudvm`, launched from your cloud-init file |
-| **Files** | `cloud-init.yaml` (you edit it), `check-cloud.sh` (download from Canvas) |
+| **Files** | `cloud-init.yaml` (you edit it), `check-cloud.sh` (both in this folder of your cloned repo) |
 | **Deliverable** | A 60–90 second Zoom screen recording (webcam off) showing `check-cloud.sh` passing and your served page, plus a short writeup |
 
 ## Outcomes
@@ -67,10 +67,10 @@ Read the comments in the file as you go — each block (`users`, `packages`, `wr
 
 ## Part C — Launch a server that builds itself
 
-From **your computer's terminal**, launch a VM that uses your config as its user-data:
+From **your computer's terminal, at the root of your cloned repo**, launch a VM that uses your config as its user-data:
 
 ```
-multipass launch 22.04 --name cloudvm --cpus 1 --memory 1G --cloud-init cloud-init.yaml
+multipass launch 22.04 --name cloudvm --cpus 1 --memory 1G --cloud-init labs/module-13-cloud-computing/cloud-init.yaml
 ```
 
 Multipass hands your file to cloud-init inside the new VM, exactly as a cloud provider would. Give it a minute to finish provisioning, then open a shell:
@@ -103,10 +103,10 @@ Inside `cloudvm`:
    ```
    You should see your personalized HTML — the server you never touched by hand.
 
-Transfer and run the check script (from your computer):
+Transfer and run the check script (from your computer, again at the repo root):
 
 ```
-multipass transfer check-cloud.sh cloudvm:/home/ubuntu/
+multipass transfer labs/module-13-cloud-computing/check-cloud.sh cloudvm:/home/ubuntu/
 multipass shell cloudvm
 bash check-cloud.sh
 ```
@@ -114,9 +114,9 @@ bash check-cloud.sh
 Fix any FAILs. **Note:** cloud-init runs only on *first* boot, so if you need to change the config, the cleanest fix is to delete and relaunch:
 
 ```
-# from your computer
+# from your computer, at the repo root
 multipass delete cloudvm && multipass purge
-multipass launch 22.04 --name cloudvm --cloud-init cloud-init.yaml
+multipass launch 22.04 --name cloudvm --cloud-init labs/module-13-cloud-computing/cloud-init.yaml
 ```
 
 This "throw it away and rebuild it from config" loop is itself a core cloud habit — servers are cattle, not pets.

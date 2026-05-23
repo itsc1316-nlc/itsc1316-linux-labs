@@ -10,7 +10,7 @@ So far you have worked on one machine. Real networks are about machines *finding
 | --- | --- |
 | **Estimated Time** | 50–75 minutes |
 | **Environment** | Your `labvm` **plus** a second VM named `fileserver` (you create it in this lab) |
-| **Scripts** | `setup-net.sh`, `check-net.sh` (download from Canvas) |
+| **Scripts** | `setup-net.sh`, `check-net.sh` (in this folder of your cloned repo) |
 | **Deliverable** | A 60–90 second Zoom screen recording (webcam off) showing `check-net.sh` passing, plus a short troubleshooting writeup |
 
 ## Outcomes
@@ -39,9 +39,11 @@ multipass list
 
 ### 2. Transfer scripts into labvm and open a shell
 
+From the **root of your cloned repo** (so the paths below resolve), run:
+
 ```
-multipass transfer ~/Downloads/setup-net.sh labvm:/home/ubuntu/
-multipass transfer ~/Downloads/check-net.sh labvm:/home/ubuntu/
+multipass transfer labs/module-09-13-networking/setup-net.sh labvm:/home/ubuntu/
+multipass transfer labs/module-09-13-networking/check-net.sh labvm:/home/ubuntu/
 multipass shell labvm
 ```
 

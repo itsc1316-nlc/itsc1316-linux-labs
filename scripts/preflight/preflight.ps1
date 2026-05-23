@@ -73,13 +73,15 @@ try {
   if ($LASTEXITCODE -eq 0) { Ok "Transferred a file into the VM" }
   else { No "File transfer into the VM failed" }
 
-  # 4. Run a command INSIDE the VM and read the file back
-  $got = (multipass exec $VM -- cat /home/ubuntu/preflight-token.txt 2>$null).Trim()
+  # 4. Run a command INSIDE the VM and read the file back.
+  # Wrap in "$(...)" so a null result (failed exec) is coerced to '' instead
+  # of crashing .Trim() with "method on a null-valued expression".
+  $got = "$(multipass exec $VM -- cat /home/ubuntu/preflight-token.txt 2>$null)".Trim()
   if ($got -eq $Token) { Ok "Ran a command inside the VM and read the file back correctly" }
   else { No "Could not verify command execution inside the VM (got: '$got')" }
 
   # 5. sudo works inside the VM
-  $who = (multipass exec $VM -- sudo whoami 2>$null).Trim()
+  $who = "$(multipass exec $VM -- sudo whoami 2>$null)".Trim()
   if ($who -eq "root") { Ok "sudo works inside the VM (you can perform admin tasks)" }
   else { No "sudo did not return root inside the VM" }
 
