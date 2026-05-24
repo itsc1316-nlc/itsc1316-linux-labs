@@ -65,17 +65,27 @@ The grader looks at the **INTEGRITY:** line. `VERIFIED` means the script is unta
 
 ## Criterion 3 — Written Component
 
-**Max: 12 points.** What "written component" means depends on the lab:
+**Max: 12 points.** Every lab except M3 and M4 uses the same shape for the written component: **one evidence file in your VM's home directory** that holds *both* your captured command output (built up as you work the lab) *and* your written answers (pasted at the bottom via `nano`). The check script verifies it has your hostname and no leftover `<...>`/`<your answer>` placeholders.
 
-| Lab(s) | Written deliverable |
+| Lab | Evidence file (created in the VM's home dir) |
 | --- | --- |
-| M1, M6 | Written reflection (answers to specific questions) |
-| M2, M3, M4, M5, M7, M9, M10, M11, M12 | A report file the lab tells you to create (`~/moduleN-…-report.txt` etc.) |
-| M13-adv, M13-cloud | A writeup (troubleshooting writeup or cloud writeup) |
-| M14 | An incident report |
-| M15 | A handover report (graded under the **Capstone overrides** at the bottom) |
+| M1 | `~/module1-system-report.txt` |
+| M2 | `~/module2-access-notes.txt` |
+| **M3** | Per-part artifact files (`~/sysreport.sh`, `~/varproof.txt`, etc.) — the artifacts *are* the evidence, by design |
+| **M4** | Per-part artifact files (`~/Documents/fhs-evidence.txt`, `utilities/notes.txt`, etc.) — same as M3 |
+| M5 | `~/module5-storage-report.txt` |
+| M6 | `~/module6-permissions-report.txt` |
+| M7 | `~/module7-software-report.txt` |
+| M9 | `~/module9-network-report.txt` |
+| M10 | `~/module10-process-report.txt` |
+| M11 | `~/module11-devices-report.txt` |
+| M12 | `~/module12-systemd-report.txt` |
+| M13-adv | `~/module13-network-writeup.txt` |
+| M13-cloud | `~/module13-cloud-writeup.txt` (created on `cloudvm`, not `labvm`) |
+| M14 | `~/module14-incident-report.txt` |
+| M15 | `~/module15-handover-report.txt` (graded under the **Capstone overrides** at the bottom) |
 
-Each lab's README spells out its specific written deliverable; this criterion grades whatever that lab requires.
+Each lab's README has a "Written Component" section with the exact pasteable block to append. Copy it out of the VM with `multipass transfer labvm:/home/ubuntu/<file> .` (or `cloudvm:` for M13-cloud) before uploading to Canvas.
 
 | Points | Standard |
 | --- | --- |
@@ -121,15 +131,15 @@ Total possible: **45 / 45**. Level definitions are identical to the standard lab
 ## Worked example — Module 6 submission
 
 A student submits:
-- A Zoom Cloud link, 78 seconds, continuous take, shows `hostname` → `whoami` → `bash check-users.sh`. The check script's integrity block is visible at the top of the output and reads `INTEGRITY: VERIFIED`. The run ends in `Passed: 4  Failed: 0`.
-- A text file with both reflection questions answered, ~3 sentences each, no `<...>` placeholders, references `avery` by name.
+- A Zoom Cloud link, 78 seconds, continuous take, shows `hostname` → `whoami` → `bash check-users.sh`. The check script's integrity block is visible at the top of the output and reads `INTEGRITY: VERIFIED`. The run ends in `Passed: 7  Failed: 0`.
+- `module6-permissions-report.txt` — the `Hostname:` line at the top has the real `hostname` output, and the `REFLECTION — Module 6` block is pasted at the bottom with both questions answered (~3 sentences each), no `<your answer>` placeholders remaining, references `avery` by name.
 - Attached on Canvas before the deadline.
 - The lab is AI-OPEN; the student included: "Asked Claude to explain the difference between 660 and 640 for the file mode; verified by running `sudo su - avery` and trying to edit `meeting-highlights.txt` myself."
 
 Scoring:
 - Criterion 1: **9** (all PASS).
 - Criterion 2: **6** (continuous take with hostname/whoami/passing check visible).
-- Criterion 3: **12** (both sections present, no placeholders, references real lab evidence).
+- Criterion 3: **12** (report file present, hostname filled in, both reflection answers at the bottom, no placeholders, references real lab evidence).
 - Criterion 4: **9** (all artifacts, AI disclosure present, on time).
 
 Total: 9 + 6 + 12 + 9 = **36 / 36**.
@@ -142,7 +152,7 @@ Run through these in order; if you can't say "yes" to all, fix the gap first:
 
 - [ ] **Crit 1 (9 pts).** I just ran `bash check-*.sh` (or `sudo bash check-*.sh` if the lab says so) and saw **0 FAILs** — AND the integrity line at the top reads `INTEGRITY: VERIFIED`. (If it reads `MISMATCH`, you edited the check script — refetch it fresh: `rm check-*.sh && curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/<lab>/check-<name>.sh` — a `MISMATCH` is graded as academic-integrity, not a partial-credit issue. If it reads `UNKNOWN`, the script's own message names the cause (no network, script path not in `CHECKSUMS.txt`, or no `sha256sum`/`shasum`); fix it and re-run so the line reads `VERIFIED`. See [docs/05-screen-recording-guide.md](05-screen-recording-guide.md) for the full recipe.)
 - [ ] **Crit 2 (6 pts).** My recording is a single continuous take. In it you can see the integrity block (reading `VERIFIED`), `hostname`, `whoami`, and the check ending in PASS — all without me pausing or editing.
-- [ ] **Crit 3 (12 pts).** My written file has every section the lab asked for, zero `<...>` placeholders, and at least one reference to my own VM's specific output (hostname, IP, file path, etc.).
+- [ ] **Crit 3 (12 pts).** My evidence file (`~/moduleN-...-report.txt`) has the `Hostname:` line filled in at the top, the captured command output from each part of the lab in the middle, and the lab's "Written Component" block pasted at the bottom with every `<your answer>` / `<...>` replaced and at least one reference to my own VM's specific output. (For M3 and M4 only: the per-part artifact files the lab tells you to create, instead of one unified report.)
 - [ ] **Crit 4 (9 pts).** I attached both the recording (or link) and the written file. If AI was permitted and I used it, I added the one-line disclosure.
 
 If all four are checked, you'd give yourself 36 / 36. The grader will too.

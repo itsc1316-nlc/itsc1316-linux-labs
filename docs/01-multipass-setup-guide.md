@@ -147,7 +147,7 @@ The check prints PASS or FAIL for each requirement. Fix any FAILs and run it aga
 
 ### Step 4 — Record proof and submit
 
-Record a short screencast (see Part 4) showing `hostname`, `whoami`, and the check passing. Submit per the rubric.
+Most labs ask for **two artifacts** on Canvas: the short screencast (see Part 4) showing `hostname`, `whoami`, and the check passing, **and** the lab's evidence file (`~/moduleN-...-report.txt`) — the same file you've been appending command output to and the same file the README's "Written Component" block told you to paste prose into at the bottom. Copy it out of the VM with `multipass transfer labvm:/home/ubuntu/<file> .` before uploading. See [Grading Rubric](04-grading-rubric.md) for the full per-criterion breakdown and the per-lab list of evidence-file paths.
 
 ---
 
