@@ -38,8 +38,8 @@ multipass shell labvm
 Then **inside `labvm`**, pull this lab's two scripts straight from the public course repo, eyeball them, and create your report template:
 
 ```
-curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-09-networking-fundamentals/setup-netfund.sh
-curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-09-networking-fundamentals/check-netfund.sh
+curl -fsSLO https://raw.githubusercontent.com/itsc1316-nlc/itsc1316-linux-labs/main/labs/module-09-networking-fundamentals/setup-netfund.sh
+curl -fsSLO https://raw.githubusercontent.com/itsc1316-nlc/itsc1316-linux-labs/main/labs/module-09-networking-fundamentals/check-netfund.sh
 bash setup-netfund.sh
 ```
 

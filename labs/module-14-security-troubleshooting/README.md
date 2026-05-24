@@ -49,11 +49,11 @@ multipass shell labvm
 Then **inside `labvm`**, pull this lab's two scripts straight from the public course repo, eyeball them, and plant the scenario:
 
 ```
-curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-14-security-troubleshooting/setup-security.sh
-curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-14-security-troubleshooting/check-security.sh
+curl -fsSLO https://raw.githubusercontent.com/itsc1316-nlc/itsc1316-linux-labs/main/labs/module-14-security-troubleshooting/setup-security.sh
+curl -fsSLO https://raw.githubusercontent.com/itsc1316-nlc/itsc1316-linux-labs/main/labs/module-14-security-troubleshooting/check-security.sh
 # Optional safety review (this is the security module — worth the scan).
 # Skim each script for red flags: any 'rm -rf /', any 'curl ... | bash', any URL
-# not under raw.githubusercontent.com/opseval/, any unexpected modification of
+# not under raw.githubusercontent.com/itsc1316-nlc/, any unexpected modification of
 # /etc/passwd, /etc/shadow, /etc/sudoers.d/, or systemd unit paths outside
 # /etc/systemd/system/reportd.service (which IS this lab). The INTEGRITY: VERIFIED
 # line the check script prints is the stronger guarantee — this is the human-eye

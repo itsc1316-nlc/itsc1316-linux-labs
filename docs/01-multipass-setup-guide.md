@@ -79,14 +79,14 @@ If you *are* doing the portfolio track (recommended but optional), launch a seco
 **macOS / Linux:**
 
 ```
-curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/scripts/workstation/cloud-init.yaml
+curl -fsSLO https://raw.githubusercontent.com/itsc1316-nlc/itsc1316-linux-labs/main/scripts/workstation/cloud-init.yaml
 multipass launch 22.04 --name workstation --cpus 1 --memory 1G --disk 5G --cloud-init ./cloud-init.yaml
 ```
 
 **Windows (PowerShell)** — use `curl.exe`, not `curl`; the bare word is an alias for Invoke-WebRequest, which doesn't speak `-fsSLO`:
 
 ```
-curl.exe -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/scripts/workstation/cloud-init.yaml
+curl.exe -fsSLO https://raw.githubusercontent.com/itsc1316-nlc/itsc1316-linux-labs/main/scripts/workstation/cloud-init.yaml
 multipass launch 22.04 --name workstation --cpus 1 --memory 1G --disk 5G --cloud-init ./cloud-init.yaml
 ```
 
@@ -117,8 +117,8 @@ Your prompt changes to `ubuntu@labvm:~$`. You are now *inside* the Linux system.
 Each per-lab README tells you the exact two `curl` commands for that lab. They look like this (the example is Module 6):
 
 ```
-curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-06-users-and-permissions/setup-users.sh
-curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-06-users-and-permissions/check-users.sh
+curl -fsSLO https://raw.githubusercontent.com/itsc1316-nlc/itsc1316-linux-labs/main/labs/module-06-users-and-permissions/setup-users.sh
+curl -fsSLO https://raw.githubusercontent.com/itsc1316-nlc/itsc1316-linux-labs/main/labs/module-06-users-and-permissions/check-users.sh
 ```
 
 The `-O` writes each file with its remote name (e.g. `setup-users.sh`); `-fsSL` makes curl quiet on success, loud on failure, and follow any redirects.
@@ -205,7 +205,7 @@ A few commands you will use throughout the semester:
 | Open a shell | `multipass shell labvm` |
 | Stop the VM (frees resources, keeps your work) | `multipass stop labvm` |
 | Start it again | `multipass start labvm` |
-| Pull a lab script from the public repo (run *inside* labvm) | `curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/<lab>/<script>.sh` |
+| Pull a lab script from the public repo (run *inside* labvm) | `curl -fsSLO https://raw.githubusercontent.com/itsc1316-nlc/itsc1316-linux-labs/main/labs/<lab>/<script>.sh` |
 | Copy a notes/report file out (for Canvas upload) | `multipass transfer labvm:/home/ubuntu/FILE .` |
 | Take a (named) snapshot before risky work | `multipass stop labvm && multipass snapshot --name BEFORE-X labvm && multipass start labvm` |
 | Restore a snapshot | `multipass stop labvm && multipass restore labvm.BEFORE-X && multipass start labvm` |

@@ -48,8 +48,8 @@ multipass shell labvm
 Then **inside `labvm`**, pull this lab's two scripts straight from the public course repo, eyeball them, and plant the scenario:
 
 ```
-curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-10-processes-and-resources/setup-processes.sh
-curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-10-processes-and-resources/check-processes.sh
+curl -fsSLO https://raw.githubusercontent.com/itsc1316-nlc/itsc1316-linux-labs/main/labs/module-10-processes-and-resources/setup-processes.sh
+curl -fsSLO https://raw.githubusercontent.com/itsc1316-nlc/itsc1316-linux-labs/main/labs/module-10-processes-and-resources/check-processes.sh
 sudo bash setup-processes.sh
 ```
 

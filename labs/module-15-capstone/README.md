@@ -51,11 +51,11 @@ multipass shell labvm
 Then **inside `labvm`**, pull this lab's two scripts straight from the public course repo, eyeball them, and plant the scenario:
 
 ```
-curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-15-capstone/setup-capstone.sh
-curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-15-capstone/check-capstone.sh
+curl -fsSLO https://raw.githubusercontent.com/itsc1316-nlc/itsc1316-linux-labs/main/labs/module-15-capstone/setup-capstone.sh
+curl -fsSLO https://raw.githubusercontent.com/itsc1316-nlc/itsc1316-linux-labs/main/labs/module-15-capstone/check-capstone.sh
 # Optional safety review (capstone — worth one last scan).
 # Skim each script for red flags: any 'rm -rf /', any 'curl ... | bash', any URL
-# not under raw.githubusercontent.com/opseval/, any unexpected modification of
+# not under raw.githubusercontent.com/itsc1316-nlc/, any unexpected modification of
 # /etc/passwd, /etc/shadow, or /etc/sudoers.d/, or any write outside the lab's
 # stated paths (/srv/inherited, /opt/finance, /usr/local/bin/datacruncher,
 # /etc/systemd/system/inheritd.service). The INTEGRITY: VERIFIED line the check

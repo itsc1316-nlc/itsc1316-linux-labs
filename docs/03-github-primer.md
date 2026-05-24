@@ -25,9 +25,9 @@ You do this in your **laptop's browser**, not in workstation (workstation has no
 
 ## Part 2 — Make your own copy of the labs (the "Use this template" button)
 
-Still in your **laptop's browser**. The course repo (`opseval/itsc1316-linux-labs`) is a **template** — for the portfolio track you make your own copy, then commit your notes, writeups, and any scripts you build into it as you go.
+Still in your **laptop's browser**. The course repo (`itsc1316-nlc/itsc1316-linux-labs`) is a **template** — for the portfolio track you make your own copy, then commit your notes, writeups, and any scripts you build into it as you go.
 
-1. Open <https://github.com/opseval/itsc1316-linux-labs>.
+1. Open <https://github.com/itsc1316-nlc/itsc1316-linux-labs>.
 2. Click the green **"Use this template"** button at the top → **"Create a new repository."**
 3. Name it `itsc1316-labs-<yourname>` (e.g. `itsc1316-labs-aflores`).
 4. Pick **Private** or **Public**:
@@ -106,7 +106,7 @@ ls labs/
 
 You should see all the lab folders. The repo lives at `/home/ubuntu/itsc1316-labs-yourname/` inside workstation. This is where you'll save your own notes, writeups, and portfolio entries before committing them.
 
-> **Important — what runs where:** The labs themselves do **not** run from this clone. They fetch their scripts directly from `https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/...` into `labvm` using `curl` (see the [Setup Guide](01-multipass-setup-guide.md)). This clone in workstation is your **portfolio workspace** — for the notes/writeup files you create as you do each lab, and any scripts of your own you want to keep. Commands starting with `multipass` always run on your laptop's host terminal (multipass is a host tool); commands starting with `git`/`gh`/`nano`/`scp` run inside workstation.
+> **Important — what runs where:** The labs themselves do **not** run from this clone. They fetch their scripts directly from `https://raw.githubusercontent.com/itsc1316-nlc/itsc1316-linux-labs/main/labs/...` into `labvm` using `curl` (see the [Setup Guide](01-multipass-setup-guide.md)). This clone in workstation is your **portfolio workspace** — for the notes/writeup files you create as you do each lab, and any scripts of your own you want to keep. Commands starting with `multipass` always run on your laptop's host terminal (multipass is a host tool); commands starting with `git`/`gh`/`nano`/`scp` run inside workstation.
 
 > **If you prefer plain git over `gh`** (e.g. you didn't run `gh auth login`), this works too:
 > ```

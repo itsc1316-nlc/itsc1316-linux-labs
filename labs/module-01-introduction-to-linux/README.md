@@ -38,8 +38,8 @@ multipass shell labvm
 Then **inside `labvm`**, pull this lab's two scripts straight from the public course repo, eyeball them, and run the setup:
 
 ```
-curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-01-introduction-to-linux/setup-intro.sh
-curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-01-introduction-to-linux/check-intro.sh
+curl -fsSLO https://raw.githubusercontent.com/itsc1316-nlc/itsc1316-linux-labs/main/labs/module-01-introduction-to-linux/setup-intro.sh
+curl -fsSLO https://raw.githubusercontent.com/itsc1316-nlc/itsc1316-linux-labs/main/labs/module-01-introduction-to-linux/check-intro.sh
 sudo bash setup-intro.sh
 ```
 

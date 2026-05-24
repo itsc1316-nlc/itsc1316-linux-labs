@@ -19,13 +19,13 @@ Fetch the script for your OS straight from the course repo (no clone needed — 
 ### macOS / Linux / WSL
 
 ```
-curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/scripts/preflight/preflight.sh
+curl -fsSLO https://raw.githubusercontent.com/itsc1316-nlc/itsc1316-linux-labs/main/scripts/preflight/preflight.sh
 ```
 
 ### Windows (PowerShell)
 
 ```
-curl.exe -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/scripts/preflight/preflight.ps1
+curl.exe -fsSLO https://raw.githubusercontent.com/itsc1316-nlc/itsc1316-linux-labs/main/scripts/preflight/preflight.ps1
 ```
 
 > **Why `curl.exe` and not `curl` on Windows?** Windows 10/11 ships actual curl as `curl.exe`, but PowerShell aliases the bare word `curl` to its own `Invoke-WebRequest`, which doesn't understand `-fsSLO`. Using `curl.exe` explicitly bypasses the alias and gets you the real tool.

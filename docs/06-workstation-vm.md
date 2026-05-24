@@ -30,10 +30,10 @@ This is a one-time setup. After this, you'll just `multipass shell workstation` 
 From your computer's terminal, fetch the cloud-init straight from the course repo and feed it to Multipass via stdin — this works on macOS, Linux, and PowerShell with no per-OS line-continuation quirks:
 
 ```
-curl -fsSL https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/scripts/workstation/cloud-init.yaml | multipass launch 22.04 --name workstation --cpus 1 --memory 1G --disk 5G --cloud-init -
+curl -fsSL https://raw.githubusercontent.com/itsc1316-nlc/itsc1316-linux-labs/main/scripts/workstation/cloud-init.yaml | multipass launch 22.04 --name workstation --cpus 1 --memory 1G --disk 5G --cloud-init -
 ```
 
-(Equivalent single-line form: `multipass launch 22.04 --name workstation --cpus 1 --memory 1G --disk 5G --cloud-init https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/scripts/workstation/cloud-init.yaml`.)
+(Equivalent single-line form: `multipass launch 22.04 --name workstation --cpus 1 --memory 1G --disk 5G --cloud-init https://raw.githubusercontent.com/itsc1316-nlc/itsc1316-linux-labs/main/scripts/workstation/cloud-init.yaml`.)
 
 This downloads Ubuntu 22.04 LTS (the first time) and runs cloud-init on first boot — installing `git`, `gh`, `ssh-keygen`, `scp`, `nano`, `vim`, `curl`, and the GitHub CLI keyring. Total time on a typical connection: 2–4 minutes.
 
@@ -177,8 +177,8 @@ multipass start labvm workstation        # if either is stopped
 # === Do the lab in labvm (same as non-portfolio students) ===
 multipass shell labvm
 # inside labvm:
-curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-XX/setup-NAME.sh
-curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-XX/check-NAME.sh
+curl -fsSLO https://raw.githubusercontent.com/itsc1316-nlc/itsc1316-linux-labs/main/labs/module-XX/setup-NAME.sh
+curl -fsSLO https://raw.githubusercontent.com/itsc1316-nlc/itsc1316-linux-labs/main/labs/module-XX/check-NAME.sh
 sudo bash setup-NAME.sh                   # see per-lab README for sudo / no-sudo
 # ...fix things, edit notes/report file with `nano`...
 bash check-NAME.sh                        # or `sudo bash check-NAME.sh` per the README

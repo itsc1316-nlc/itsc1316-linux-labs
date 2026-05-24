@@ -81,7 +81,7 @@ multipass shell labvm
 Inside `labvm`, fetch a fresh copy of the template:
 
 ```
-curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-13-cloud-computing/cloud-init.yaml
+curl -fsSLO https://raw.githubusercontent.com/itsc1316-nlc/itsc1316-linux-labs/main/labs/module-13-cloud-computing/cloud-init.yaml
 nano cloud-init.yaml
 ```
 
@@ -145,7 +145,7 @@ Inside `cloudvm`:
    You should see your personalized HTML — the server you never touched by hand.
 3. Pull and run the check script — same curl pattern as every other lab:
    ```
-   curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-13-cloud-computing/check-cloud.sh
+   curl -fsSLO https://raw.githubusercontent.com/itsc1316-nlc/itsc1316-linux-labs/main/labs/module-13-cloud-computing/check-cloud.sh
    bash check-cloud.sh
    ```
 

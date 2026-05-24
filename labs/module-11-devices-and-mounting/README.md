@@ -51,11 +51,11 @@ multipass shell labvm
 Then **inside `labvm`**, pull this lab's two scripts straight from the public course repo, eyeball them, and run the setup. The setup pre-creates the 200 MB practice-disk image (`~/loopdisk.img`) so you have something to work with, installs the small tools this lab needs (`genisoimage` for the ISO step), and prints safety reminders. It is idempotent — re-running it cleans up any half-finished previous attempt first.
 
 ```
-curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-11-devices-and-mounting/setup-devices.sh
-curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-11-devices-and-mounting/check-devices.sh
+curl -fsSLO https://raw.githubusercontent.com/itsc1316-nlc/itsc1316-linux-labs/main/labs/module-11-devices-and-mounting/setup-devices.sh
+curl -fsSLO https://raw.githubusercontent.com/itsc1316-nlc/itsc1316-linux-labs/main/labs/module-11-devices-and-mounting/check-devices.sh
 # Optional safety review (this lab touches loop devices — worth a quick scan).
 # Skim each script for red flags: any 'rm -rf /', any 'curl ... | bash', any URL
-# not under raw.githubusercontent.com/opseval/, any unexpected modification of
+# not under raw.githubusercontent.com/itsc1316-nlc/, any unexpected modification of
 # /etc/passwd, /etc/shadow, or /etc/sudoers.d/, or any write to /dev/sda*. The
 # INTEGRITY: VERIFIED line the check script prints is the stronger guarantee —
 # this is the human-eye supplement. Press q to exit each file.

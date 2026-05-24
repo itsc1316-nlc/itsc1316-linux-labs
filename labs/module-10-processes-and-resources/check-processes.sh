@@ -25,7 +25,7 @@ echo
 # reads the printed INTEGRITY: line (tamper-evident, not tamper-proof).
 echo "=== check script integrity ==="
 INTEGRITY_REL_PATH="labs/module-10-processes-and-resources/check-processes.sh"
-INTEGRITY_REPO_URL="https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main"
+INTEGRITY_REPO_URL="https://raw.githubusercontent.com/itsc1316-nlc/itsc1316-linux-labs/main"
 __SAVED_PATH="$PATH"; PATH="/usr/bin:/bin"; unset -f curl sha256sum shasum awk printf 2>/dev/null
 echo "  Script:      $(basename "$0")"
 if [[ -x /usr/bin/sha256sum ]]; then

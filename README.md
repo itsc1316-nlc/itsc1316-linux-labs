@@ -34,8 +34,8 @@ You don't clone this repo. Instead, every lab's scripts are pulled straight into
 multipass shell labvm
 
 # inside labvm — each lab's README gives the exact URLs:
-curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/<lab>/setup-<name>.sh
-curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/<lab>/check-<name>.sh
+curl -fsSLO https://raw.githubusercontent.com/itsc1316-nlc/itsc1316-linux-labs/main/labs/<lab>/setup-<name>.sh
+curl -fsSLO https://raw.githubusercontent.com/itsc1316-nlc/itsc1316-linux-labs/main/labs/<lab>/check-<name>.sh
 less setup-<name>.sh check-<name>.sh        # inspect before you run anything as root
 sudo bash setup-<name>.sh                    # most labs; a few use 'bash' (no sudo) — README says
 # ...do the lab...

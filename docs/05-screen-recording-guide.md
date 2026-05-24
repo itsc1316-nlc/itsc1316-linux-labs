@@ -28,7 +28,7 @@ That sequence alone is enough to satisfy [Criterion 2](04-grading-rubric.md#crit
 >
 > ```
 > rm check-users.sh
-> curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/labs/module-06-users-and-permissions/check-users.sh
+> curl -fsSLO https://raw.githubusercontent.com/itsc1316-nlc/itsc1316-linux-labs/main/labs/module-06-users-and-permissions/check-users.sh
 > bash check-users.sh   # should now read VERIFIED
 > ```
 >
