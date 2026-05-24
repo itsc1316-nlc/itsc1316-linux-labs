@@ -138,6 +138,29 @@ else
   no "a page is served but it is not your custom cloud-init page"
 fi
 
+# 7. Cloud writeup exists on cloudvm, contains this VM's hostname, no
+#    unreplaced placeholders. The student creates this manually with nano on
+#    cloudvm — see the README "Written Component" section.
+LAB_USER_R="${SUDO_USER:-$(id -un)}"
+LAB_HOME_R="$(getent passwd "$LAB_USER_R" | cut -d: -f6)"
+REPORT="${LAB_HOME_R}/module13-cloud-writeup.txt"
+HOST="$(hostname)"
+if [[ ! -s "$REPORT" ]]; then
+  no "cloud writeup $REPORT not found or empty — create it on cloudvm per the README Written Component section (nano ~/module13-cloud-writeup.txt)"
+else
+  ok "cloud writeup exists at ~/module13-cloud-writeup.txt"
+  if grep -qF "$HOST" "$REPORT" 2>/dev/null; then
+    ok "writeup contains cloudvm's hostname ($HOST)"
+  else
+    no "writeup does not contain cloudvm's hostname ($HOST) — paste 'hostname' output into the file"
+  fi
+  if grep -Eq '<your answer>|<\.\.\.>' "$REPORT" 2>/dev/null; then
+    no "writeup still has <your answer> / <...> placeholders — replace them with your real reasoning"
+  else
+    ok "no unreplaced <your answer> placeholders in the writeup"
+  fi
+fi
+
 echo
 echo "-----------------------------------------------"
 echo "  Passed: $pass    Failed: $fail"

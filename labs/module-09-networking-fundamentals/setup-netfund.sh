@@ -34,13 +34,8 @@ In one sentence, what does the default route do?    <fill in>
 3) ping ubuntu.com (name resolution working?):       <paste 1 line>
 
 --- Part D: Reasoning ---
-If ping 1.1.1.1 SUCCEEDS but ping ubuntu.com FAILS, what is broken,
-and what is fine? (2-3 sentences):
-<fill in>
-
-Name two common causes of "I can't reach the network" and how you'd
-check each (2-3 sentences):
-<fill in>
+(Paste the REASONING block from the README below this line, then
+replace every placeholder with your real reasoning.)
 EOF
 
 echo "[setup] Created report template: $REPORT"

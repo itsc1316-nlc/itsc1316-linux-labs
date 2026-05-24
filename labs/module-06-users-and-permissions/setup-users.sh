@@ -54,6 +54,25 @@ EOF
 chown root:root /salesteam/generate_reports.sh
 chmod 644 /salesteam/generate_reports.sh
 
+# Drop a starter evidence-report template (idempotent — re-running leaves your
+# in-progress work alone). The check script verifies this file's hostname +
+# placeholders, so it has to live somewhere the student can write to.
+LAB_HOME="$(getent passwd "$LAB_USER" | cut -d: -f6)"
+REPORT="${LAB_HOME}/module6-permissions-report.txt"
+if [[ ! -s "$REPORT" ]]; then
+  cat > "$REPORT" <<EOF
+=== Module 6 Evidence Report ===
+Hostname:
+Investigator:
+Date:
+
+(Fill this file in as you work the lab. See the README "Written Component"
+section for the prompts to paste at the bottom.)
+EOF
+  chown "$LAB_USER":"$LAB_USER" "$REPORT"
+  echo "[setup] Starter report dropped at: $REPORT"
+fi
+
 echo
 echo "[setup] Done. The scenario is intentionally MISCONFIGURED."
 echo "        Your job is described in the lab instructions."

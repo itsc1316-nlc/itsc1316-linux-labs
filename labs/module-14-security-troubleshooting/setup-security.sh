@@ -67,6 +67,27 @@ systemctl daemon-reload
 systemctl enable reportd.service >/dev/null 2>&1 || true
 systemctl start reportd.service >/dev/null 2>&1 || true
 
+# Drop a starter incident-report template (idempotent — re-running leaves your
+# in-progress work alone). The check script verifies this file's hostname +
+# placeholders, so it has to live in the invoking user's home directory.
+LAB_USER="${SUDO_USER:-ubuntu}"
+LAB_HOME="$(getent passwd "$LAB_USER" | cut -d: -f6)"
+REPORT="${LAB_HOME}/module14-incident-report.txt"
+if [[ ! -s "$REPORT" ]]; then
+  cat > "$REPORT" <<EOF
+=== Module 14 Incident Report ===
+Hostname:
+Investigator:
+Date:
+
+(Fill this file in as you investigate. See the README "Incident Report
+(append to ~/module14-incident-report.txt)" section for the template to
+paste at the bottom.)
+EOF
+  chown "$LAB_USER":"$LAB_USER" "$REPORT"
+  echo "[setup] Starter incident report dropped at: $REPORT"
+fi
+
 echo
 echo "[setup] Done. Your system now has several security and operational"
 echo "        problems. The lab instructions tell you what to investigate."

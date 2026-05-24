@@ -11,7 +11,8 @@ A previous administrator left this system in rough shape: a tool was given dange
 | **Estimated Time** | 50–75 minutes |
 | **Environment** | Your Multipass `labvm` (Ubuntu 22.04) |
 | **Scripts** | `setup-security.sh`, `check-security.sh` (pulled into `labvm` from the public repo with curl — see Setup Guide) |
-| **Deliverable** | A 60–90 second Zoom screen recording (webcam off) showing `check-security.sh` passing, plus a short **incident report** (template below) |
+| **Deliverable** | A 60–90 second Zoom screen recording (webcam off) showing `check-security.sh` passing, plus your completed `~/module14-incident-report.txt` |
+| **Evidence File** | `~/module14-incident-report.txt` |
 
 ## Outcomes
 
@@ -62,7 +63,7 @@ less check-security.sh
 sudo bash setup-security.sh
 ```
 
-The system now has four problems. You are not told exactly where they all are — part of the lab is finding them.
+The system now has four problems. You are not told exactly where they all are — part of the lab is finding them. The setup also drops a starter incident-report template at `~/module14-incident-report.txt` (re-running setup leaves your work alone if you've already started filling it in).
 
 ---
 
@@ -127,37 +128,44 @@ Fix any FAILs and re-run until everything passes.
 
 ---
 
-## Incident Report (submit this)
+## Incident Report (append to `~/module14-incident-report.txt`)
 
-Real security work is documented. Fill in this short report (a few sentences per box) and submit it with your screencast:
+Real security work is documented. Open the report with `nano ~/module14-incident-report.txt` (save with **Ctrl+O** then **Enter**, exit with **Ctrl+X** — see [Setup Guide Part 5](../../docs/01-multipass-setup-guide.md) for the Mac-vs-Windows keystroke note). Fill in the `Hostname:` line at the top with your real output of `hostname`. Then scroll to the bottom, paste the block below, and replace each `<your answer>` with your real reasoning. The check verifies hostname + rejects unreplaced placeholders.
 
 ```
-INCIDENT REPORT — Module 14
+=== INCIDENT REPORT — Module 14 ===
 Investigator (your name):
-VM hostname (run `hostname`):
+VM hostname (paste output of `hostname`):
 
 1. SUID tool
-   - Which file? How did you find it?
-   - Why is an unnecessary SUID-root binary dangerous? (one realistic abuse)
-   - What did you do?
+   Which file? How did you find it?
+   Why is an unnecessary SUID-root binary dangerous? (one realistic abuse)
+   What did you do?
+   <your answer>
 
 2. Exposed payroll file
-   - Path and the original permissions you found:
-   - The permissions you set, and why that satisfies least privilege:
+   Path and the original permissions you found.
+   The permissions you set, and why that satisfies least privilege.
+   <your answer>
 
 3. Runaway process
-   - Process name and how you identified it (which command, what evidence):
-   - How you stopped it:
-   - One sentence: how would you stop it from returning?
+   Process name and how you identified it (which command, what evidence).
+   How you stopped it.
+   One sentence: how would you stop it from returning?
+   <your answer>
 
 4. Failed service
-   - Root cause (from the logs, in one sentence):
-   - How you remediated it, and why "reinstalling everything" would have been the wrong first move:
+   Root cause (from the logs, in one sentence).
+   How you remediated it, and why "reinstalling everything" would have
+   been the wrong first move.
+   <your answer>
 
 5. Attack surface (listening services, from `sudo ss -tulpn`)
-   - The listening services you found, and a one-line judgment for each
-     (needed? who should reach it?):
-   - Which one service, if any, would you investigate first for tightening, and why:
+   The listening services you found, and a one-line judgment for each
+   (needed? who should reach it?).
+   Which one service, if any, would you investigate first for tightening,
+   and why?
+   <your answer>
 ```
 
 ---
@@ -167,7 +175,7 @@ VM hostname (run `hostname`):
 Submit **two things**:
 
 1. A **60–90 second screen recording** made per the [Screen Recording Guide](../../docs/05-screen-recording-guide.md) (Alamo Zoom by default; one specific backup per OS if Zoom is broken) (webcam off; narration optional), showing in one continuous take: `hostname`, `whoami`, and `bash check-security.sh` passing. Submit the **Zoom Cloud link** if available (otherwise the `.mp4`); keep your own copy for a possible portfolio.
-2. Your completed **incident report** — this is where you state the root cause of the failed service and your reasoning, so the recording does not need narration.
+2. Your completed **`~/module14-incident-report.txt`** — hostname filled in *and* the five incident-response sections appended at the bottom. This is where you state the root cause of the failed service and your reasoning, so the recording does not need narration. (Copy it out of the VM with `multipass transfer labvm:/home/ubuntu/module14-incident-report.txt .` from your computer's terminal.)
 
 > **AI policy for this lab: AI-OPEN.** You may ask an AI assistant to explain `find` flags or how to read `journalctl`, but the investigation, the evidence you cite, and the root-cause statement must be yours. Note anything you asked AI and what you confirmed on your own system. An AI can describe what `reportd` *might* fail from; only your VM's logs tell you what it *actually* failed from — cite the real log line.
 
@@ -196,10 +204,10 @@ Or just `multipass stop labvm` to leave it as-is. Do not delete `labvm`.
 - [ ] Identified and stopped the runaway process (with evidence)
 - [ ] Diagnosed the failed service from its logs and disabled/masked it
 - [ ] Surveyed listening services with `ss -tulpn` and judged the attack surface
-- [ ] Ran `check-security.sh` and all checks PASS
-- [ ] Wrote the incident report
+- [ ] Built `~/module14-incident-report.txt` with hostname + five incident-response sections (no `<your answer>` placeholders left)
+- [ ] Ran `bash check-security.sh` and all checks PASS
 - [ ] Recorded the Zoom screen recording (webcam off)
-- [ ] Submitted screencast + incident report
+- [ ] Submitted screencast + completed incident report to Canvas
 
 ---
 

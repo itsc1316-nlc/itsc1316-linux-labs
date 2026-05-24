@@ -11,8 +11,9 @@ In this lab you secure a shared directory for a sales team. You will fix broken 
 | **Estimated Time** | 30–50 minutes |
 | **Environment** | Your Multipass `labvm` (Ubuntu 22.04) |
 | **Scripts** | `setup-users.sh`, `check-users.sh` (pulled into `labvm` from the public repo with curl — see Setup Guide) |
-| **Deliverable** | A 60–90 second Zoom screen recording (webcam off) showing `check-users.sh` passing, plus your written answers to the two reflection questions |
+| **Deliverable** | A 60–90 second Zoom screen recording (webcam off) showing `check-users.sh` passing, plus your completed `~/module6-permissions-report.txt` with reflection answers appended |
 | **Key Location** | `/salesteam` |
+| **Evidence File** | `~/module6-permissions-report.txt` |
 
 ## Outcomes
 
@@ -45,7 +46,7 @@ curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/l
 sudo bash setup-users.sh
 ```
 
-This creates a `salesteam` group, two teammates (`avery` and `jordan`), and a `/salesteam` directory containing a `generate_reports.sh` script. The setup deliberately leaves things **misconfigured** — fixing them is the lab.
+This creates a `salesteam` group, two teammates (`avery` and `jordan`), and a `/salesteam` directory containing a `generate_reports.sh` script. The setup deliberately leaves things **misconfigured** — fixing them is the lab. It also drops a starter evidence-report template at `~/module6-permissions-report.txt` (re-running setup leaves your work alone if you've already started filling it in).
 
 > **Tip — snapshot before you experiment.** From inside the VM, type `exit` to return to your computer's terminal, then stop the VM and snapshot it (Multipass won't snapshot a running instance), then start it again:
 >
@@ -104,12 +105,27 @@ It prints PASS or FAIL for each requirement. Correct any FAILs and run it again 
 
 ---
 
-## Reflection Questions (answer in your submission)
+## Written Component (append to `~/module6-permissions-report.txt`)
 
-Real understanding shows up in *why*, not just *what*. Answer both in 2–3 sentences each, in your own words:
+Open the report with `nano ~/module6-permissions-report.txt` (save with **Ctrl+O** then **Enter**, exit with **Ctrl+X** — see [Setup Guide Part 5](../../docs/01-multipass-setup-guide.md) for the Mac-vs-Windows keystroke note). Fill in the `Hostname:` line at the top with your real output of `hostname`. Then scroll to the bottom, paste the block below, and replace each `<your answer>` with your real reasoning. The check verifies hostname + rejects unreplaced placeholders.
 
-1. You set `meeting-highlights.txt` to `660`. What specifically would change for the user `avery` if you had set it to `640` instead? (You can test this — switch to avery with `sudo su - avery` and try to edit the file.)
-2. Why is it risky to make `generate_reports.sh` executable and writable by the group or others? Describe one realistic way that could be abused.
+```
+=== REFLECTION — Module 6 ===
+Name:
+VM hostname (paste output of `hostname`):
+
+1. 660 vs 640 on meeting-highlights.txt
+   You set the file to mode 660. What specifically would change for the
+   user `avery` if you had set it to 640 instead? (You can test this —
+   switch to avery with `sudo su - avery` and try to edit the file.)
+   <your answer>
+
+2. Why locking down generate_reports.sh matters
+   Why is it risky to make `generate_reports.sh` executable and writable
+   by the group or others? Describe one realistic way that could be
+   abused.
+   <your answer>
+```
 
 ---
 
@@ -117,8 +133,8 @@ Real understanding shows up in *why*, not just *what*. Answer both in 2–3 sent
 
 Submit **two things** to Canvas:
 
-1. A **60–90 second screen recording** made per the [Screen Recording Guide](../../docs/05-screen-recording-guide.md) (Alamo Zoom by default; one specific backup per OS if Zoom is broken) (webcam off; narration optional). It must show, in one continuous take: `hostname` and `whoami` (so we know it is your VM), then `bash check-users.sh` passing all checks. See the [Screen Recording Guide](../../docs/05-screen-recording-guide.md) for the recording and submission steps (a **Zoom Cloud link is preferred**; keep your own `.mp4` copy for a possible portfolio).
-2. Your **written answers** to the two reflection questions above (a few sentences each). This is where you explain your reasoning, so the recording does not need narration.
+1. A **60–90 second screen recording** made per the [Screen Recording Guide](../../docs/05-screen-recording-guide.md) (Alamo Zoom by default; one specific backup per OS if Zoom is broken) (webcam off; narration optional). It must show, in one continuous take: `hostname` and `whoami` (so we know it is your VM), then `bash check-users.sh` passing all checks.
+2. Your completed **`~/module6-permissions-report.txt`** — hostname filled in *and* the two reflection answers appended at the bottom. This is where your reasoning lives, so the recording does not need narration. (Copy it out of the VM with `multipass transfer labvm:/home/ubuntu/module6-permissions-report.txt .` from your computer's terminal.)
 
 > **AI policy for this lab: AI-OPEN.** You may use an AI assistant to help you understand commands, but include a one-line note of anything you asked it and what you verified yourself. The screencast and reflection answers are how you demonstrate the work is yours.
 
@@ -143,10 +159,10 @@ Do **not** delete `labvm` — later labs reuse it.
 - [ ] Created `meeting-highlights.txt` with mode `660` and some content
 - [ ] Set `generate_reports.sh` to be executable by the owner only
 - [ ] Ran the script and confirmed three `.xls` reports were created
-- [ ] Ran `check-users.sh` and all checks PASS
+- [ ] Built `~/module6-permissions-report.txt` with hostname + two reflection answers (no `<your answer>` placeholders left)
+- [ ] Ran `bash check-users.sh` and all checks PASS
 - [ ] Recorded the Zoom screen recording (webcam off; hostname + whoami + passing check)
-- [ ] Wrote answers to both reflection questions
-- [ ] Submitted screencast + written answers to Canvas
+- [ ] Submitted screencast + completed report to Canvas
 
 ---
 

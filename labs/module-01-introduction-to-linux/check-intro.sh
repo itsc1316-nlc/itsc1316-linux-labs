@@ -144,10 +144,14 @@ fi
 #    REFLECTION marker.
 remaining_placeholders="$(grep -c '<run:' "$REPORT" 2>/dev/null || true)"
 remaining_placeholders="${remaining_placeholders:-0}"
+remaining_answers="$(grep -c '<your answer>' "$REPORT" 2>/dev/null || true)"
+remaining_answers="${remaining_answers:-0}"
 if (( remaining_placeholders > 0 )); then
   no "Found $remaining_placeholders unfilled '<run: ...>' placeholder(s) — replace every placeholder with the real command output from this VM"
+elif (( remaining_answers > 0 )); then
+  no "Found $remaining_answers unreplaced '<your answer>' placeholder(s) in the reflection — replace each with your real reasoning"
 else
-  ok "All command placeholders were replaced with real output"
+  ok "All placeholders were replaced (no '<run:' or '<your answer>' left)"
 fi
 
 # Count words appearing AFTER the REFLECTION header. Require enough to be a

@@ -12,6 +12,7 @@ Before you can configure or troubleshoot networking, you have to be able to answ
 | **Environment** | Your Multipass `labvm` (Ubuntu 22.04) |
 | **Scripts** | `setup-netfund.sh`, `check-netfund.sh` (pulled into `labvm` from the public repo with curl — see Setup Guide) |
 | **Deliverable** | A 60–90 second Zoom screen recording (webcam off) showing `check-netfund.sh` passing, plus your completed network report |
+| **Evidence File** | `~/module9-network-report.txt` |
 
 ## Outcomes
 
@@ -88,12 +89,25 @@ Paste one result line from each into your report. Think about what each *rules o
 - If (1) works but (2) fails, you can reach your LAN but not the internet (routing/gateway/upstream).
 - If (2) works but (3) fails, the network is fine — it's **DNS / name resolution** that's broken.
 
-## Part D — Reasoning (write this up)
+## Part D — Reasoning (append to your report)
 
-In the report, answer:
+Open the report with `nano ~/module9-network-report.txt` (save with **Ctrl+O** then **Enter**, exit with **Ctrl+X** — see [Setup Guide Part 5](../../docs/01-multipass-setup-guide.md) for the Mac-vs-Windows keystroke note). Scroll to the bottom, paste the block below, and replace each `<your answer>` with your real reasoning. The check requires at least 90 words of report content total and rejects any leftover `<fill in>` or `<paste>` placeholders.
 
-1. If `ping 1.1.1.1` succeeds but `ping ubuntu.com` fails, what is broken and what is fine?
-2. Name two common causes of "I can't reach the network" and how you'd check each.
+```
+=== REASONING — Module 9 ===
+Name:
+VM hostname (paste output of `hostname`):
+
+1. Layered testing — what each result rules out
+   If `ping 1.1.1.1` succeeds but `ping ubuntu.com` fails, what is
+   broken and what is fine? Explain in plain English.
+   <your answer>
+
+2. "I can't reach the network" — two causes and how to check each
+   Name TWO common causes of network unreachability and describe how
+   you'd check each one (which command, what to look for).
+   <your answer>
+```
 
 ---
 
@@ -112,7 +126,7 @@ Fix any FAILs and re-run until everything passes.
 ## Submission Requirement
 
 1. A **60–90 second screen recording** made per the [Screen Recording Guide](../../docs/05-screen-recording-guide.md) (Alamo Zoom by default; one specific backup per OS if Zoom is broken) (webcam off; narration optional), showing in one continuous take: `hostname`, `whoami`, and `bash check-netfund.sh` passing. Submit the **Zoom Cloud link** if available (otherwise the `.mp4`); keep your own copy for a possible portfolio.
-2. Your completed **network report** (`~/module9-network-report.txt`) — this is where your reasoning lives, so the recording does not need narration.
+2. Your completed **`~/module9-network-report.txt`** — the captured `ip a` / `ip route` / `ping` evidence *and* the reasoning answers appended at the bottom. This is where your reasoning lives, so the recording does not need narration. (Copy it out of the VM with `multipass transfer labvm:/home/ubuntu/module9-network-report.txt .` from your computer's terminal.)
 
 > **AI policy for this lab: AI-OPEN.** AI can explain what `ip route` output means, but the interface name, IP, and gateway in your report must be *your VM's* — an AI can't see them. Note anything you asked AI and what you verified.
 

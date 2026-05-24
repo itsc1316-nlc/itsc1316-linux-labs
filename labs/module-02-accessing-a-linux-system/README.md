@@ -186,13 +186,30 @@ It prints PASS/FAIL for: both users existing, both passwords actually set (statu
 
 ---
 
-## Written Reflection (in `module2-access-notes.txt`)
+## Written Reflection (append to `~/module2-access-notes.txt`)
 
-Answer all three at the bottom of your notes, in your own words, a few sentences each:
+Open your notes with `nano ~/module2-access-notes.txt` (save with **Ctrl+O** then **Enter**, exit with **Ctrl+X** — see [Setup Guide Part 5](../../docs/01-multipass-setup-guide.md) for the Mac-vs-Windows keystroke note). Scroll to the bottom and paste the block below, then replace each `<your answer>` with your real reasoning. The check looks for the word `reflection` plus at least 50 words of prose.
 
-1. **GUI vs CLI:** describe one situation where the command line is clearly the right tool and one where a GUI is, and explain why for each.
-2. **Time sync:** why does keeping a server's clock synchronized with a time server actually matter? Give one concrete consequence of a wrong clock.
-3. **Docs:** for the command you researched in Task 4, name one thing you learned from `man` or `--help` that you didn't already know.
+```
+WRITTEN REFLECTION — Module 2
+Name:
+VM hostname (paste output of `hostname`):
+
+1. GUI vs CLI
+   Describe one situation where the command line is clearly the right
+   tool and one where a GUI is, and explain WHY for each.
+   <your answer>
+
+2. Time sync
+   Why does keeping a server's clock synchronized with a time server
+   actually matter? Give one concrete consequence of a wrong clock.
+   <your answer>
+
+3. Docs
+   For the command you researched in Task 4, name one thing you learned
+   from `man` or `--help` that you didn't already know.
+   <your answer>
+```
 
 ---
 
@@ -201,7 +218,7 @@ Answer all three at the bottom of your notes, in your own words, a few sentences
 Submit **two things** to Canvas:
 
 1. A **60–90 second screen recording** made per the [Screen Recording Guide](../../docs/05-screen-recording-guide.md) (Alamo Zoom by default; one specific backup per OS if Zoom is broken) (webcam off; narration optional), showing in one continuous take: `hostname`, `whoami`, and `sudo bash check-access.sh` passing. Submit the **Zoom Cloud link** if available (otherwise the `.mp4`); keep your own copy for a possible portfolio.
-2. Your completed **`module2-access-notes.txt`**, including the written reflection — this is where your reasoning lives, so the recording does not need narration. (Copy it out with `multipass transfer labvm:/home/ubuntu/module2-access-notes.txt .` from your computer's terminal.)
+2. Your completed **`~/module2-access-notes.txt`** — the captured outputs *and* the written reflection appended at the bottom. This is where your reasoning lives, so the recording does not need narration. (Copy it out of the VM with `multipass transfer labvm:/home/ubuntu/module2-access-notes.txt .` from your computer's terminal.)
 
 > **AI policy for this lab: AI-OPEN.** You may ask an AI assistant how `ssh`, `passwd`, `su`, or `timedatectl` work — include a one-line note of what you asked and what you verified yourself. But an AI can't connect to *your* VM, can't see your real IP, can't set a password in your `/etc/shadow`, and can't read your clock's sync state. The check confirms those on the live system, so the work has to be yours.
 

@@ -245,11 +245,9 @@ sudo fsck -fy /dev/loopX >> ~/module11-devices-report.txt 2>&1
 > **Why unmounted?** A live filesystem has in-memory state (the page cache, open files, the journal) that hasn't been flushed. fsck assumes the on-disk image is static; if the kernel writes while fsck is "fixing," you get the corruption you were trying to prevent. That's why fsck refuses to run on a mounted rw filesystem unless you force it — and forcing it is how people destroy real data.
 
 **7. Finish your report's written section.**
-Append the explanations the check looks for (replace every `<...>`):
+Open the report with `nano ~/module11-devices-report.txt` (save with **Ctrl+O** then **Enter**, exit with **Ctrl+X** — see [Setup Guide Part 5](../../docs/01-multipass-setup-guide.md) for the Mac-vs-Windows keystroke note). Scroll to the bottom and paste the block below, then replace **every angle-bracket placeholder** (`<your answer>`, `<field 1 device/source ...>`, `<df reports ...>`, etc.) with your real content. The check requires all three header lines below (`FSTAB FIELDS`, `WHY FSCK NEEDS AN UNMOUNTED`, `DF vs DU`) and rejects leftover `<...>` placeholders.
 
 ```
-cat >> ~/module11-devices-report.txt <<'EOF'
-
 === EXPLANATIONS ===
 FSTAB FIELDS (in your own words, all six):
 <field 1 device/source = ...; field 2 mount point = ...; field 3 type = ...;
@@ -257,14 +255,25 @@ FSTAB FIELDS (in your own words, all six):
  field 6 fsck pass = ...>
 
 WHY FSCK NEEDS AN UNMOUNTED FILESYSTEM:
-<your explanation>
+<your answer>
 
 DF vs DU (conceptually):
 <df reports ...; du reports ...; when would you reach for each?>
-EOF
-```
 
-Then edit the file (`nano ~/module11-devices-report.txt`) and replace each `<...>` with your real explanation.
+=== REFLECTION ===
+1. noauto vs auto-mount at boot
+   You used `loop,noauto` in your fstab line. Explain concretely what
+   could happen at the NEXT BOOT if you had instead written a normal
+   auto-mount line and it contained a typo in the device path. How does
+   `nofail` change that risk?
+   <your answer>
+
+2. fsck on a mounted filesystem
+   A colleague says "just run `fsck` on the drive, it's faster than
+   unmounting." Explain WHY that advice is dangerous and what you would
+   do instead.
+   <your answer>
+```
 
 ---
 
@@ -286,21 +295,12 @@ Fix any FAILs and re-run until everything passes.
 
 ---
 
-## Written Component (submit this)
-
-Your devices report **is** the written component. Beyond the file, answer these two reflection questions in your submission (2–3 sentences each, your own words):
-
-1. You used `loop,noauto` in your fstab line. Explain concretely what could happen at the *next boot* if you had instead written a normal auto-mount line and it contained a typo in the device path. How does `nofail` change that risk?
-2. A colleague says "just run `fsck` on the drive, it's faster than unmounting." Explain why that advice is dangerous and what you would do instead.
-
----
-
 ## Submission Requirement
 
 Submit **two things** to Canvas:
 
 1. A **60–90 second screen recording** made per the [Screen Recording Guide](../../docs/05-screen-recording-guide.md) (Alamo Zoom by default; one specific backup per OS if Zoom is broken) (webcam off; narration optional), showing in one continuous take: `hostname`, `whoami`, and `bash check-devices.sh` passing. Submit the **Zoom Cloud link** if available (otherwise the `.mp4`); keep your own copy for a possible portfolio.
-2. Your **devices report** (`~/module11-devices-report.txt`) plus your answers to the two reflection questions. This is where your reasoning lives, so the recording does not need narration.
+2. Your completed **`~/module11-devices-report.txt`** — the captured `lsblk`/`blkid`/`df`/`fsck` output *and* the explanations + reflection appended at the bottom. This is where your reasoning lives, so the recording does not need narration. (Copy it out of the VM with `multipass transfer labvm:/home/ubuntu/module11-devices-report.txt .` from your computer's terminal.)
 
 > **AI policy for this lab: AI-OPEN.** You may ask an AI assistant to explain `losetup`, `mkfs`, fstab fields, or `fsck` flags, but include a one-line note of what you asked and what you verified yourself. An AI cannot tell you *which* `/dev/loopN` your machine assigned, *which* UUID `blkid` printed for your practice disk, or what your real `lsblk` tree looks like — those, and the evidence in your report, must come from your own VM.
 

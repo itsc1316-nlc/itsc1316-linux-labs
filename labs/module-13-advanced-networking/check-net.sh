@@ -116,6 +116,29 @@ else
   no "External name resolution is failing — check /etc/resolv.conf / systemd-resolved"
 fi
 
+# 5. Evidence report exists, contains this VM's hostname, no unreplaced
+#    placeholders. The setup script drops a starter template; the student
+#    appends the Written Component block from the README via nano.
+LAB_USER_R="${SUDO_USER:-$(id -un)}"
+LAB_HOME_R="$(getent passwd "$LAB_USER_R" | cut -d: -f6)"
+REPORT="${LAB_HOME_R}/module13-network-writeup.txt"
+HOST="$(hostname)"
+if [[ ! -s "$REPORT" ]]; then
+  no "writeup $REPORT not found or empty — re-run 'sudo bash setup-net.sh' for the template, then fill it in per the README Written Component section"
+else
+  ok "writeup exists at ~/module13-network-writeup.txt"
+  if grep -qF "$HOST" "$REPORT" 2>/dev/null; then
+    ok "writeup contains this VM's hostname ($HOST)"
+  else
+    no "writeup does not contain this VM's hostname ($HOST) — paste 'hostname' output into the file"
+  fi
+  if grep -Eq '<your answer>|<\.\.\.>' "$REPORT" 2>/dev/null; then
+    no "writeup still has <your answer> / <...> placeholders — replace them with your real reasoning"
+  else
+    ok "no unreplaced <your answer> placeholders in the writeup"
+  fi
+fi
+
 echo
 echo "-----------------------------------------------"
 echo "  Passed: $pass    Failed: $fail"

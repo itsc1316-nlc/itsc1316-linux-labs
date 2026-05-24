@@ -171,7 +171,7 @@ It prints PASS or FAIL for each specification, with a hint on each FAIL. Fix the
 
 ## Handover Report Template
 
-Copy this into `~/module15-handover-report.txt` and replace **every** `<...>` with your own content. Leaving any `<...>`, `TODO`, or `FIXME` in the file will fail the check.
+Create the report with `nano ~/module15-handover-report.txt` (save with **Ctrl+O** then **Enter**, exit with **Ctrl+X** — see [Setup Guide Part 5](../../docs/01-multipass-setup-guide.md) for the Mac-vs-Windows keystroke note). Paste the template below, then replace **every** `<...>` with your own content. Leaving any `<...>`, `TODO`, or `FIXME` in the file will fail the check.
 
 ```
 =========================================================

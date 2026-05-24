@@ -207,30 +207,33 @@ It prints PASS or FAIL for each requirement. Correct any FAILs and run it again 
 
 ---
 
-## Written Component (submit this)
+## Written Component (append to `~/module10-process-report.txt`)
 
-Answer all three in your own words. Aim for 3–5 sentences each — this is where your reasoning lives, so the recording does not need narration.
+Open the report with `nano ~/module10-process-report.txt` (save with **Ctrl+O** then **Enter**, exit with **Ctrl+X** — see [Setup Guide Part 5](../../docs/01-multipass-setup-guide.md) for the Mac-vs-Windows keystroke note). Scroll to the bottom, paste the block below, and replace each `<your answer>` with your real reasoning. Aim for 3–5 sentences per answer.
 
 ```
 MODULE 10 WRITTEN COMPONENT
 Name:
-VM hostname (run `hostname`):
+VM hostname (paste output of `hostname`):
 
 1. What is a process?
-   - In your own words, what is a process, and what do the PID, PPID, and
-     owner tell an administrator? Why is the owner important when deciding how
-     to stop a process?
+   In your own words, what is a process, and what do the PID, PPID, and
+   owner tell an administrator? Why is the owner important when deciding
+   how to stop a process?
+   <your answer>
 
 2. SIGTERM vs SIGKILL
-   - Explain the difference between SIGTERM (kill) and SIGKILL (kill -9).
-     When should you use each, and what risk comes with reaching for -9 too
-     soon?
+   Explain the difference between SIGTERM (kill) and SIGKILL (kill -9).
+   When should you use each, and what risk comes with reaching for -9
+   too soon?
+   <your answer>
 
 3. How you diagnosed the resource hog
-   - Walk through how you found the runaway process: which command(s) you ran,
-     what evidence pointed to it (e.g. %CPU near 100%, climbing load average),
-     its name and PID, and how you stopped it. This should match the notes in
-     your report.
+   Walk through how you found the runaway process: which command(s) you
+   ran, what evidence pointed to it (e.g. %CPU near 100%, climbing load
+   average), its name and PID, and how you stopped it. This should match
+   the notes already in your report.
+   <your answer>
 ```
 
 ---
@@ -240,7 +243,7 @@ VM hostname (run `hostname`):
 Submit **two things** to Canvas:
 
 1. A **60–90 second screen recording** made per the [Screen Recording Guide](../../docs/05-screen-recording-guide.md) (Alamo Zoom by default; one specific backup per OS if Zoom is broken) (webcam off; narration optional), showing in one continuous take: `hostname`, `whoami`, and `bash check-processes.sh` passing. Submit the **Zoom Cloud link** if available (otherwise the `.mp4`); keep your own copy for a possible portfolio.
-2. Your completed **written component** (the three questions above). This is where you explain your reasoning, so the recording does not need narration.
+2. Your completed **`~/module10-process-report.txt`** — the captured `ps`/`free`/`uptime`/`pgrep`/`renice` output *and* the three written answers appended at the bottom. This is where your reasoning lives, so the recording does not need narration. (Copy it out of the VM with `multipass transfer labvm:/home/ubuntu/module10-process-report.txt .` from your computer's terminal.)
 
 > **AI policy for this lab: AI-OPEN.** You may ask an AI assistant to explain `ps`/`top` columns, signals, or niceness — include a one-line note of what you asked and what you verified yourself. An AI cannot see your VM: only you can watch *your* `top`, read *your* load average, find the real PID of the hog on *your* machine, and capture it into the report. The screencast and the report built from your real output are how you show the work is yours.
 

@@ -36,6 +36,27 @@ sed -i "/^${BOGUS_IP}[[:space:]].*fileserver/d" /etc/hosts
 # Add a deliberately WRONG mapping (an unreachable address).
 echo "${BOGUS_IP}    fileserver    ${MARKER}" >> /etc/hosts
 
+# Drop a starter evidence-report template (idempotent — re-running leaves your
+# in-progress work alone). The check script verifies this file's hostname +
+# placeholders, so it has to live in the invoking user's home directory.
+LAB_USER="${SUDO_USER:-ubuntu}"
+LAB_HOME="$(getent passwd "$LAB_USER" | cut -d: -f6)"
+REPORT="${LAB_HOME}/module13-network-writeup.txt"
+if [[ ! -s "$REPORT" ]]; then
+  cat > "$REPORT" <<EOF
+=== Module 13 Network Writeup ===
+Hostname (paste output of \`hostname\`):
+This VM's IP (from \`ip a\`):
+The fileserver VM's IP (from \`multipass list\`):
+Date:
+
+(Fill this file in as you work the lab. See the README "Written Component"
+section for the prompts to paste at the bottom.)
+EOF
+  chown "$LAB_USER":"$LAB_USER" "$REPORT"
+  echo "[setup] Starter writeup dropped at: $REPORT"
+fi
+
 echo
 echo "[setup] Done. Your /etc/hosts now claims 'fileserver' lives at"
 echo "        ${BOGUS_IP}, which is wrong. Use the lab instructions to"

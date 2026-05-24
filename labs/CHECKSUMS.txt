@@ -19,18 +19,18 @@
 # rather than overwriting it; if you re-generate from scratch, paste this
 # header back at the top.
 
-ddc3a542b6fc40b012036a95ca109ae0bcca2f1c16d1885492c0b35668fbfd9a  labs/module-01-introduction-to-linux/check-intro.sh
+9895a8a243a46a4bbac8a28ab907329910460789c6c82edca3372e8b733c5f42  labs/module-01-introduction-to-linux/check-intro.sh
 e993c5d4e6902c3e823ed9ef85df1375d01e5ade7bda222cafea944140f795a8  labs/module-02-accessing-a-linux-system/check-access.sh
 c0bc7607fade2577658504d24d643a0fcc1b2c5bbdc78d16550158d3413267ec  labs/module-03-shell-and-files/check-shell.sh
 fc81e86e0b57b6c7f327f52b1421c89d9f4b102ae98a1b92de5de527c8b2c4fc  labs/module-04-filesystem-navigation/check-filesystem.sh
 4c1972faff94a637e3020d812ccd3a47940199984d1e0ea4a8e12a26e1a6c678  labs/module-05-storage-monitoring/check-storage.sh
-65164a656bc2c0fcc6df19df1a83c0f5dbee291404fb37971fce0dd4cb3cf77a  labs/module-06-users-and-permissions/check-users.sh
+1bcbde685e8893d4e1578f465787870840dd90bdc1bffa3ef333c0465e6b146d  labs/module-06-users-and-permissions/check-users.sh
 575008f93bc495de9db9fcb8d55d02e4b31a2edecf525cc7efed1f0c9c071584  labs/module-07-software-and-archives/check-software.sh
 efebd44b2b7ecc94c8b1f535248fdc2c2ac49285cda0e78671bf89410f4896b5  labs/module-09-networking-fundamentals/check-netfund.sh
 d55d5dd31e4e052c09ae714ada9d54b45a401dbe344f0be958e443e4109c2ad4  labs/module-10-processes-and-resources/check-processes.sh
 cc774ca2cd933d5f820222ff41f9dcdaae6a26b69524826456ef87a831613667  labs/module-11-devices-and-mounting/check-devices.sh
 50e29ab085cedd7934e8b0f76bb546777194e688b4b87178537e35fe4efd08ce  labs/module-12-systemd-services/check-systemd.sh
-defbc2b5594a9994280e4c3ccf002377bbf2db41e0324e6df17819aafe6c4370  labs/module-13-advanced-networking/check-net.sh
-7e29a905d52ced45f4110ef33b9be284ff9d5d6418214b314132ef066aa5a6cd  labs/module-13-cloud-computing/check-cloud.sh
-eb066e81efa0f18d78d1947b3ebccf3785adac94ee7c854038f28f42ef1913d8  labs/module-14-security-troubleshooting/check-security.sh
+37a125e65168edb81d1737afe83f83d59b777fbf697ca859176b3b9d4ca490e0  labs/module-13-advanced-networking/check-net.sh
+624999e4db057982f41e9556ba3ec9b2dc37c1e15dc025e9a9cb52a5a62a4e65  labs/module-13-cloud-computing/check-cloud.sh
+926b901639bb99f29c8fed56d1c519e8ba34282ae920bad4ecf39c446b1cd068  labs/module-14-security-troubleshooting/check-security.sh
 4d12991b9cbde3ed61066567ddc8d89a115b1b4d09a8d52e34bde09d7975558e  labs/module-15-capstone/check-capstone.sh

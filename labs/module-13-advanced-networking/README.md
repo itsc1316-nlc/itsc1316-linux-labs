@@ -11,7 +11,8 @@ So far you have worked on one machine. Real networks are about machines *finding
 | **Estimated Time** | 50–75 minutes |
 | **Environment** | Your `labvm` **plus** a second VM named `fileserver` (you create it in this lab) |
 | **Scripts** | `setup-net.sh`, `check-net.sh` (pulled into `labvm` from the public repo with curl — see Setup Guide) |
-| **Deliverable** | A 60–90 second Zoom screen recording (webcam off) showing `check-net.sh` passing, plus a short troubleshooting writeup |
+| **Deliverable** | A 60–90 second Zoom screen recording (webcam off) showing `check-net.sh` passing, plus your completed `~/module13-network-writeup.txt` |
+| **Evidence File** | `~/module13-network-writeup.txt` |
 
 ## Outcomes
 
@@ -61,7 +62,7 @@ curl -fsSLO https://raw.githubusercontent.com/opseval/itsc1316-linux-labs/main/l
 sudo bash setup-net.sh
 ```
 
-This adds a deliberately **wrong** `/etc/hosts` entry claiming `fileserver` lives at `192.0.2.123`.
+This adds a deliberately **wrong** `/etc/hosts` entry claiming `fileserver` lives at `192.0.2.123`. It also drops a starter writeup template at `~/module13-network-writeup.txt` (re-running setup leaves your work alone if you've already started filling it in).
 
 ---
 
@@ -189,25 +190,41 @@ Fix any FAILs and re-run until everything passes.
 
 ---
 
-## Troubleshooting Writeup (submit this)
+## Troubleshooting Writeup (append to `~/module13-network-writeup.txt`)
 
-A few sentences per item, in your own words:
+Open the writeup with `nano ~/module13-network-writeup.txt` (save with **Ctrl+O** then **Enter**, exit with **Ctrl+X** — see [Setup Guide Part 5](../../docs/01-multipass-setup-guide.md) for the Mac-vs-Windows keystroke note). Fill in the `Hostname:` / `labvm IP:` / `fileserver IP:` lines the setup template left for you. Then scroll to the bottom, paste the block below, and replace each `<your answer>` with your real reasoning. The check verifies hostname + rejects unreplaced placeholders.
 
 ```
-TROUBLESHOOTING WRITEUP — Module 13
+=== TROUBLESHOOTING WRITEUP — Module 13 ===
 Name:
-labvm hostname (run `hostname`):
+Hostname (paste output of `hostname`):
 
-1. Default gateway and what the default route means:
-2. fileserver's real IP (from multipass list):
-3. The evidence that told you this was a NAME-RESOLUTION problem and not a
-   connectivity problem (be specific about which commands and outputs):
-4. A 5-step troubleshooting playbook for the report "the server is reachable
-   by IP but not by hostname" (your own words, in order):
-5. Two services listening on your VM (from `sudo ss -tulpn`) and what each is for:
-6. In your own words: the difference between a RUNTIME network change (like
-   `ip route add`) and a PERSISTENT one (like editing /etc/hosts or netplan),
-   and why "it worked until I rebooted" usually points to a runtime change:
+1. Default gateway and what the default route means
+   <your answer>
+
+2. fileserver's real IP (from `multipass list`)
+   <your answer>
+
+3. Evidence that told you this was a NAME-RESOLUTION problem and not a
+   connectivity problem
+   Be specific about which commands and outputs you used.
+   <your answer>
+
+4. A 5-step troubleshooting playbook for the report:
+   "the server is reachable by IP but not by hostname"
+   In your own words, in order.
+   <your answer>
+
+5. Two services listening on your VM (from `sudo ss -tulpn`)
+   Name each one and say in plain language what it is for.
+   <your answer>
+
+6. Runtime vs persistent network changes
+   In your own words: the difference between a RUNTIME network change
+   (like `ip route add`) and a PERSISTENT one (like editing /etc/hosts
+   or netplan), and WHY "it worked until I rebooted" usually points to
+   a runtime change.
+   <your answer>
 ```
 
 ---
@@ -215,7 +232,7 @@ labvm hostname (run `hostname`):
 ## Submission Requirement
 
 1. A **60–90 second screen recording** made per the [Screen Recording Guide](../../docs/05-screen-recording-guide.md) (Alamo Zoom by default; one specific backup per OS if Zoom is broken) (webcam off; narration optional), showing in one continuous take: `hostname`, `multipass list` (or `ip a`), and `bash check-net.sh` passing. Submit the **Zoom Cloud link** if available (otherwise the `.mp4`); keep your own copy for a possible portfolio.
-2. Your completed **troubleshooting writeup** — this is where you explain the difference between the IP test and the name test, so the recording does not need narration.
+2. Your completed **`~/module13-network-writeup.txt`** — hostname/IP lines filled in *and* the six writeup answers appended at the bottom. This is where you explain the difference between the IP test and the name test, so the recording does not need narration. (Copy it out of the VM with `multipass transfer labvm:/home/ubuntu/module13-network-writeup.txt .` from your computer's terminal.)
 
 > **AI policy for this lab: AI-OPEN.** AI is fine for understanding `ip route` output or `/etc/hosts` syntax, but the playbook and your evidence must come from your own two VMs. Note anything you asked AI and what you verified. An AI cannot know your `fileserver`'s real IP — only your `multipass list` can.
 
@@ -250,10 +267,10 @@ Do not delete `labvm`.
 - [ ] Verified ping-by-name now works and external DNS still works
 - [ ] Listed listening services with `sudo ss -tulpn` and identified two
 - [ ] Saw a runtime route change vs. the persistent `/etc/hosts` edit, and looked at netplan
-- [ ] Ran `check-net.sh` and all checks PASS
-- [ ] Wrote the troubleshooting writeup
+- [ ] Built `~/module13-network-writeup.txt` with hostname + six writeup answers (no `<your answer>` placeholders left)
+- [ ] Ran `bash check-net.sh` and all checks PASS
 - [ ] Recorded the Zoom screen recording (webcam off)
-- [ ] Submitted screencast + writeup
+- [ ] Submitted screencast + completed writeup to Canvas
 
 ---
 

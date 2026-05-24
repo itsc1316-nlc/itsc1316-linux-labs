@@ -149,6 +149,28 @@ else
   no "Report problems: ${bad[*]} — run ./generate_reports.sh from inside /salesteam"
 fi
 
+# 5. Evidence report exists, contains this VM's hostname, no unreplaced
+#    placeholders. The setup script drops a starter template; the student
+#    appends the Written Component block from the README via nano.
+LAB_HOME_R="$(getent passwd "$LAB_USER" | cut -d: -f6)"
+REPORT="${LAB_HOME_R}/module6-permissions-report.txt"
+HOST="$(hostname)"
+if [[ ! -s "$REPORT" ]]; then
+  no "evidence report $REPORT not found or empty — re-run 'sudo bash setup-users.sh' for the template, then fill it in per the README Written Component section"
+else
+  ok "evidence report exists at ~/module6-permissions-report.txt"
+  if grep -qF "$HOST" "$REPORT" 2>/dev/null; then
+    ok "report contains this VM's hostname ($HOST)"
+  else
+    no "report does not contain this VM's hostname ($HOST) — paste 'hostname' output into the file"
+  fi
+  if grep -Eq '<your answer>|<\.\.\.>' "$REPORT" 2>/dev/null; then
+    no "report still has <your answer> / <...> placeholders — replace them with your real reasoning"
+  else
+    ok "no unreplaced <your answer> placeholders in the report"
+  fi
+fi
+
 echo
 echo "-----------------------------------------------"
 echo "  Passed: $pass    Failed: $fail"

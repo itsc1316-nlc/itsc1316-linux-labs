@@ -141,6 +141,29 @@ else
   no "reportd.service is stopped but still enabled — disable or mask it (enabled=$enabled)"
 fi
 
+# 5. Incident report exists, contains this VM's hostname, no unreplaced
+#    placeholders. The setup script drops a starter template; the student
+#    appends the Incident Report block from the README via nano.
+LAB_USER_R="${SUDO_USER:-$(id -un)}"
+LAB_HOME_R="$(getent passwd "$LAB_USER_R" | cut -d: -f6)"
+REPORT="${LAB_HOME_R}/module14-incident-report.txt"
+HOST="$(hostname)"
+if [[ ! -s "$REPORT" ]]; then
+  no "incident report $REPORT not found or empty — re-run 'sudo bash setup-security.sh' for the template, then fill it in per the README Incident Report section"
+else
+  ok "incident report exists at ~/module14-incident-report.txt"
+  if grep -qF "$HOST" "$REPORT" 2>/dev/null; then
+    ok "incident report contains this VM's hostname ($HOST)"
+  else
+    no "incident report does not contain this VM's hostname ($HOST) — paste 'hostname' output into the file"
+  fi
+  if grep -Eq '<your answer>|<\.\.\.>' "$REPORT" 2>/dev/null; then
+    no "incident report still has <your answer> / <...> placeholders — replace them with your real reasoning"
+  else
+    ok "no unreplaced <your answer> placeholders in the incident report"
+  fi
+fi
+
 echo
 echo "-----------------------------------------------"
 echo "  Passed: $pass    Failed: $fail"

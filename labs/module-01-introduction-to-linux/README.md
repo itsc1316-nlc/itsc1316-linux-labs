@@ -115,12 +115,29 @@ It confirms your report exists, is non-empty, and that the facts you recorded ac
 
 ---
 
-## Written Reflection (in `module1-system-report.txt`)
+## Written Reflection (append to `~/module1-system-report.txt`)
 
-Answer both at the bottom of your report, in your own words, a short paragraph each:
+Open the report with `nano ~/module1-system-report.txt` (save with **Ctrl+O** then **Enter**, exit with **Ctrl+X** — see [Setup Guide Part 5](../../docs/01-multipass-setup-guide.md) for the Mac-vs-Windows keystroke note). Scroll to the bottom and paste the block below, then replace each `<your answer>` with your real reasoning. The check looks for the word `reflection` plus at least 40 words of prose.
 
-1. **What makes this "Linux" and not Windows or macOS?** Point to at least **two** concrete things you found above (for example: the single `/` filesystem root with no drive letters, the absence of a GUI, the kernel name from `uname`, the `apt` package manager, or the multi-user shell). Explain what each one tells you.
-2. **Where in industry or the cloud would you expect a system like this one?** Name a realistic place (web/app servers, cloud instances on AWS/Azure/GCP, containers, embedded devices, etc.) and explain *why* Linux is a good fit there — tie it back to something you observed (headless, lightweight, package-managed, free to run on thousands of machines).
+```
+WRITTEN REFLECTION — Module 1
+Name:
+VM hostname (paste output of `hostname`):
+
+1. What makes this "Linux" and not Windows or macOS?
+   Point to at least TWO concrete things you found above (for example: the
+   single `/` filesystem root with no drive letters, the absence of a GUI,
+   the kernel name from `uname`, the `apt` package manager, or the
+   multi-user shell). Explain what each one tells you.
+   <your answer>
+
+2. Where in industry or the cloud would you expect a system like this one?
+   Name a realistic place (web/app servers, cloud instances on AWS/Azure/
+   GCP, containers, embedded devices, etc.) and explain WHY Linux is a good
+   fit there — tie it back to something you observed (headless,
+   lightweight, package-managed, free to run on thousands of machines).
+   <your answer>
+```
 
 ---
 
@@ -129,7 +146,7 @@ Answer both at the bottom of your report, in your own words, a short paragraph e
 Submit **two things** to Canvas:
 
 1. A **60–90 second screen recording** made per the [Screen Recording Guide](../../docs/05-screen-recording-guide.md) (Alamo Zoom by default; one specific backup per OS if Zoom is broken) (webcam off; narration optional), showing in one continuous take: `hostname`, `whoami`, and `bash check-intro.sh` passing. Submit the **Zoom Cloud link** if available (otherwise the `.mp4`); keep your own copy for a possible portfolio.
-2. Your completed **`module1-system-report.txt`**, including the written reflection — this is where your reasoning lives, so the recording does not need narration. (Copy it out of the VM with `multipass transfer labvm:/home/ubuntu/module1-system-report.txt .` from your computer's terminal.)
+2. Your completed **`~/module1-system-report.txt`** — the captured outputs *and* the written reflection appended at the bottom. This is where your reasoning lives, so the recording does not need narration. (Copy it out of the VM with `multipass transfer labvm:/home/ubuntu/module1-system-report.txt .` from your computer's terminal.)
 
 > **AI policy for this lab: AI-OPEN.** You may ask an AI assistant to explain what any of these commands do — include a one-line note of what you asked and what you verified yourself. But an AI cannot see *your* VM: it doesn't know your kernel build number, your hostname, or how many packages your machine has. The check script compares your report to your live system, so the evidence has to come from running the commands yourself.
 

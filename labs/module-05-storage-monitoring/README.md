@@ -129,30 +129,38 @@ du -sh ~/bigdata/manyfiles >> ~/module5-storage-report.txt
 > **Why this matters:** `df` could show a filesystem filling up with no obvious "big file" in sight. Sometimes the cause is *thousands* of small files (logs, cache, mail spools). Knowing to check counts as well as sizes is part of reading storage correctly.
 
 **5. Write the storage report + recommendation.**
-Finish `~/module5-storage-report.txt` with a short written analysis. Append (or open the file in `nano` and add) a section that, in your own words:
+Finish `~/module5-storage-report.txt` with your written analysis and reflection. In your own words you will:
 
-- States **what is consuming the space** (name the large file and the small-file directory).
-- States **what you would check next** before acting (e.g. who owns it, when it was last modified, whether anything depends on it).
-- Gives a **recommended action** — and explicitly notes that you would **not** delete system files blindly. (You are writing a recommendation, not running `rm` on anything system-critical.)
+- State **what is consuming the space** (name the large file and the small-file directory).
+- State **what you would check next** before acting (e.g. who owns it, when it was last modified, whether anything depends on it).
+- Give a **recommended action** — and explicitly note that you would **not** delete system files blindly. (You are writing a recommendation, not running `rm` on anything system-critical.)
 
-Use this template (replace every `<...>` — leaving a placeholder will fail the check):
+Open the report with `nano ~/module5-storage-report.txt` (save with **Ctrl+O** then **Enter**, exit with **Ctrl+X** — see [Setup Guide Part 5](../../docs/01-multipass-setup-guide.md) for the Mac-vs-Windows keystroke note). Scroll to the bottom and paste the block below, then replace **every angle-bracket placeholder** (`<your answer>`, `<name the large file...>`, etc.) with your real content. The check requires the three `===` section headers below and rejects any leftover `<...>` placeholder.
 
 ```
-cat >> ~/module5-storage-report.txt <<'EOF'
-
 === ANALYSIS & RECOMMENDATION ===
 WHAT IS CONSUMING SPACE:
-<name the large file and the small-file directory, with sizes>
+<name the large file and the small-file directory, with sizes from your VM>
 
 WHAT I WOULD CHECK NEXT:
 <who owns it / last modified / dependencies — before removing anything>
 
 RECOMMENDED ACTION:
 <your recommendation; note that you would NOT delete system files blindly>
-EOF
-```
 
-Then edit the file (`nano ~/module5-storage-report.txt`) and replace each `<...>` with your real analysis.
+=== REFLECTION ===
+1. df vs du in a real scenario
+   Describe a real situation where `df` would tell you the disk is nearly
+   full but `du` on your home directory would show NOTHING large. Where
+   else would you look?
+   <your answer>
+
+2. Before deleting a large file
+   The large file the setup planted is 200 MB. Before deleting ANY large
+   file you find on a production server, name TWO things you would verify
+   first, and explain what could go wrong if you skipped them.
+   <your answer>
+```
 
 ---
 
@@ -168,21 +176,12 @@ It prints PASS or FAIL for each requirement. Correct any FAILs and run it again 
 
 ---
 
-## Written Component (submit this)
-
-Your storage report **is** the written component, and it is graded both by the check (structure + correct facts) and by your instructor (quality of reasoning). Beyond the file, answer these two reflection questions in your submission (2–3 sentences each, your own words):
-
-1. You ran both `df` and `du`. Describe a real situation where `df` would tell you the disk is nearly full but `du` on your home directory would show *nothing* large. Where else would you look?
-2. The large file the setup planted is 200 MB. Before deleting *any* large file you find on a production server, name two things you would verify first, and explain what could go wrong if you skipped them.
-
----
-
 ## Submission Requirement
 
 Submit **two things** to Canvas:
 
 1. A **60–90 second screen recording** made per the [Screen Recording Guide](../../docs/05-screen-recording-guide.md) (Alamo Zoom by default; one specific backup per OS if Zoom is broken) (webcam off; narration optional), showing in one continuous take: `hostname`, `whoami`, and `bash check-storage.sh` passing. Submit the **Zoom Cloud link** if available (otherwise the `.mp4`); keep your own copy for a possible portfolio.
-2. Your **storage report** (`~/module5-storage-report.txt`) plus your answers to the two reflection questions. This is where your reasoning lives, so the recording does not need narration.
+2. Your completed **`~/module5-storage-report.txt`** — the captured `df`/`du`/`find` output *and* the analysis + reflection appended at the bottom. This is where your reasoning lives, so the recording does not need narration. (Copy it out of the VM with `multipass transfer labvm:/home/ubuntu/module5-storage-report.txt .` from your computer's terminal.)
 
 > **AI policy for this lab: AI-OPEN.** You may ask an AI assistant to explain `df`, `du`, `find -size`, or `sort -h`, but include a one-line note of what you asked and what you verified yourself. An AI cannot see *your* VM's real `df` output or the exact size and path of the file the setup planted on *your* machine — those numbers, and the recommendation built on them, must come from your own investigation.
 

@@ -13,7 +13,8 @@ You will write a cloud-init config that, on first boot, creates a key-only login
 | **Estimated Time** | 50–80 minutes (plus optional cloud extension) |
 | **Environment** | A fresh Multipass VM named `cloudvm`, launched from your cloud-init file |
 | **Files** | `cloud-init.yaml` (you edit it), `check-cloud.sh` (you `curl` and edit them inside `labvm` — see Setup Guide) |
-| **Deliverable** | A 60–90 second Zoom screen recording (webcam off) showing `check-cloud.sh` passing and your served page, plus a short writeup |
+| **Deliverable** | A 60–90 second Zoom screen recording (webcam off) showing `check-cloud.sh` passing and your served page, plus your completed `~/module13-cloud-writeup.txt` on `cloudvm` |
+| **Evidence File** | `~/module13-cloud-writeup.txt` (created on `cloudvm` — see Written Component below) |
 
 ## Outcomes
 
@@ -200,24 +201,42 @@ All checks must pass.
 
 ---
 
-## Writeup (submit this)
+## Written Component (create `~/module13-cloud-writeup.txt` on cloudvm)
 
-A few sentences each, in your own words:
+This lab has no `setup-cloud.sh` — the cloud-init file *is* the setup — so you'll create the writeup file by hand on `cloudvm` with `nano`. **Stay shelled into `cloudvm` (`multipass shell cloudvm`)** for this step; the check runs on `cloudvm` and verifies the writeup is *there*, not on `labvm`.
 
 ```
-CLOUD PROVISIONING WRITEUP — Module 13
-Name:
-cloudvm hostname (run `hostname`):
+nano ~/module13-cloud-writeup.txt
+```
 
-1. In your own words, what does cloud-init do, and why do cloud providers
+(Save with **Ctrl+O** then **Enter**, exit with **Ctrl+X** — see [Setup Guide Part 5](../../docs/01-multipass-setup-guide.md) for the Mac-vs-Windows keystroke note.) Paste the block below into the empty file and replace each `<your answer>` with your real reasoning. The check verifies the file exists, contains cloudvm's hostname, and rejects unreplaced placeholders.
+
+```
+=== CLOUD PROVISIONING WRITEUP — Module 13 ===
+Name:
+Hostname of this VM (paste output of `hostname`):
+
+1. What cloud-init does, and why providers use it
+   In your own words, what does cloud-init do, and why do cloud providers
    use it instead of having admins configure each server by hand?
-2. Why do cloud servers use SSH keys instead of passwords? What is the risk
-   of password login on an internet-facing server?
-3. You rebuilt the server by deleting it and relaunching from the same config.
-   Why is "rebuild from config" safer and more reliable than "log in and fix
-   it by hand"?
-4. (If you did the bonus) What was different, if anything, about running your
-   config on a real cloud provider?
+   <your answer>
+
+2. SSH keys vs passwords on internet-facing servers
+   Why do cloud servers use SSH keys instead of passwords? What is the
+   risk of password login on an internet-facing server?
+   <your answer>
+
+3. Rebuild from config vs log in and fix it
+   You rebuilt the server by deleting it and relaunching from the same
+   config. Why is "rebuild from config" safer and more reliable than
+   "log in and fix it by hand"?
+   <your answer>
+
+4. (Optional bonus) Real cloud provider
+   If you did the bonus, what was different, if anything, about running
+   your config on a real cloud provider? If you skipped the bonus,
+   write the word "skipped" on the answer line below.
+   <your answer>
 ```
 
 ---
@@ -225,7 +244,7 @@ cloudvm hostname (run `hostname`):
 ## Submission Requirement
 
 1. A **60–90 second screen recording** made per the [Screen Recording Guide](../../docs/05-screen-recording-guide.md) (Alamo Zoom by default; one specific backup per OS if Zoom is broken) (webcam off; narration optional), showing in one continuous take: `hostname`, `cloud-init status`, `curl http://localhost/` displaying YOUR personalized page, and `bash check-cloud.sh` passing. Submit the **Zoom Cloud link** if available (otherwise the `.mp4`); keep your own copy for a possible portfolio.
-2. Your completed **writeup** — this is where you explain what cloud-init did and why, so the recording does not need narration.
+2. Your completed **`~/module13-cloud-writeup.txt`** from `cloudvm` — hostname *and* the four writeup answers. This is where you explain what cloud-init did and why, so the recording does not need narration. (Copy it out with `multipass transfer cloudvm:/home/ubuntu/module13-cloud-writeup.txt .` from your computer's terminal.)
 
 > **AI policy for this lab: AI-OPEN.** AI is great for understanding cloud-init syntax — but your key, your name on the page, and your running server are yours. Note anything you asked AI and what you verified.
 
@@ -251,11 +270,11 @@ Keep `labvm` (your main VM) — only `cloudvm` is disposable here.
 - [ ] Confirmed `clouduser` exists and password login is locked
 - [ ] Confirmed nginx installed itself and serves your personalized page
 - [ ] Connected over SSH using your key (no password prompt)
-- [ ] Ran `check-cloud.sh` and all checks PASS
+- [ ] Built `~/module13-cloud-writeup.txt` on cloudvm with hostname + four writeup answers (no `<your answer>` placeholders left)
+- [ ] Ran `bash check-cloud.sh` and all checks PASS
 - [ ] (Optional) Ran the same config on a real free-tier instance and tore it down
-- [ ] Wrote the writeup
 - [ ] Recorded the Zoom screen recording (webcam off)
-- [ ] Submitted screencast + writeup
+- [ ] Submitted screencast + completed writeup to Canvas
 
 ---
 

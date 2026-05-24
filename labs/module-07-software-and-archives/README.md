@@ -217,32 +217,35 @@ It prints PASS or FAIL for each requirement. Correct any FAILs and run it again 
 
 ---
 
-## Written Component (submit this)
+## Written Component (append to `~/module7-software-report.txt`)
 
-Answer all three in your own words. Aim for 3–5 sentences each — this is where your reasoning lives, so the recording does not need narration.
+Open the report with `nano ~/module7-software-report.txt` (save with **Ctrl+O** then **Enter**, exit with **Ctrl+X** — see [Setup Guide Part 5](../../docs/01-multipass-setup-guide.md) for the Mac-vs-Windows keystroke note). Scroll to the bottom, paste the block below, and replace each `<your answer>` with your real reasoning. Aim for 3–5 sentences per answer.
 
 ```
 MODULE 7 WRITTEN COMPONENT
 Name:
-VM hostname (run `hostname`):
+VM hostname (paste output of `hostname`):
 
 1. Repositories & safety
-   - In your own words, what is a software repository, and what role does the
-     package manager (apt/dpkg) play in installing, updating, and removing
-     software?
-   - Explain at least TWO concrete reasons package-managed software is safer
-     than downloading a binary from a website and running it. (Think: signing,
-     dependencies, clean removal, auditability.)
+   In your own words, what is a software repository, and what role does
+   the package manager (apt/dpkg) play in installing, updating, and
+   removing software? Explain at least TWO concrete reasons
+   package-managed software is safer than downloading a binary from a
+   website and running it. (Think: signing, dependencies, clean removal,
+   auditability.)
+   <your answer>
 
 2. Install vs. archive
-   - Explain the difference between INSTALLING software and ARCHIVING files.
-     Why are these two separate skills even though both involve "files"?
+   Explain the difference between INSTALLING software and ARCHIVING files.
+   Why are these two separate skills even though both involve "files"?
+   <your answer>
 
 3. A real archive use case
-   - Describe one realistic situation in your future as an admin where you'd
-     create a compressed archive (e.g. backing up config before a change,
-     shipping logs to support, moving a directory tree to another server).
-     Name the file you'd archive and why compression helps.
+   Describe one realistic situation in your future as an admin where
+   you'd create a compressed archive (e.g. backing up config before a
+   change, shipping logs to support, moving a directory tree to another
+   server). Name the file you'd archive and why compression helps.
+   <your answer>
 ```
 
 ---
@@ -252,7 +255,7 @@ VM hostname (run `hostname`):
 Submit **two things** to Canvas:
 
 1. A **60–90 second screen recording** made per the [Screen Recording Guide](../../docs/05-screen-recording-guide.md) (Alamo Zoom by default; one specific backup per OS if Zoom is broken) (webcam off; narration optional), showing in one continuous take: `hostname`, `whoami`, and `bash check-software.sh` passing. Submit the **Zoom Cloud link** if available (otherwise the `.mp4`); keep your own copy for a possible portfolio.
-2. Your completed **written component** (the three questions above). This is where you explain your reasoning, so the recording does not need narration.
+2. Your completed **`~/module7-software-report.txt`** — the captured `apt`/`dpkg`/`tar` output *and* the three written answers appended at the bottom. This is where your reasoning lives, so the recording does not need narration. (Copy it out of the VM with `multipass transfer labvm:/home/ubuntu/module7-software-report.txt .` from your computer's terminal.)
 
 > **AI policy for this lab: AI-OPEN.** You may use an AI assistant to help you understand `apt`, `dpkg`, or `tar` flags — include a one-line note of anything you asked it and what you verified yourself. An AI cannot see your VM: only you can run `apt`/`tar` on *your* machine, produce *your* archive listing, and capture *your* hostname into the report. The screencast and the report built from your real output are how you show the work is yours.
 
